@@ -99,9 +99,11 @@ def send_cmd(cmd,socket):
     return output
 
 def get_pos(s):
-    pos = send_cmd('PCMD\n',s)
-    return float(pos.decode('utf-8').strip('%').strip())
-    
+    try:
+        pos = send_cmd('PCMD\n',s)
+        return float(pos.decode('utf-8').strip('%').strip())
+    except:
+        return 0
     
 
 def move_position(position,velocity,socket):

@@ -46,7 +46,7 @@ import sys, time
 import os
 from Canvas import Canvas
 import threading
-
+from Position import Position
 
     
 class MainWindow_EXEC():
@@ -61,6 +61,9 @@ class MainWindow_EXEC():
         self.end = 100 
         self.ystart = -5
         self.yend = 5
+        self.timer = None
+        self.qthread = None
+        self.pos = None
         
         self.s,self.ser = scan.init_devices(rehome=False)
 
@@ -82,8 +85,10 @@ class MainWindow_EXEC():
         self.ui.action_Save.triggered.connect(self.save)
         self.ui.actionLoad.triggered.connect(self.load)
         self.ui.action_Print.triggered.connect(self.print_page)
-        self.position_timer()
-        self.update_current_position()
+        #self.position_timer()
+        
+        self.update_position()
+        
         self.MainWindow.show()
         sys.exit(self.app.exec_()) 
         
@@ -101,7 +106,7 @@ class MainWindow_EXEC():
             loc = self.ui.sb_goto3.value()
             self.moving(loc)
             #scan.move_position(loc,self.speed,self.s)
-            
+            end = pyqtSignal()
     def goto4(self):
             loc = self.ui.sb_goto3_2.value()
             self.moving(loc)
@@ -156,9 +161,6 @@ class MainWindow_EXEC():
         
     def set_spin_box_values(self):
         
-        timer = QTimer()
-        timer.timeout.connect(self.set_spin_box_values)
-        timer.start(5000)
         self.ui.sb_lower_limit.setValue(self.canvas.ax[1].get_ylim()[0])
         self.ui.sb_upper_limit.setValue(self.canvas.ax[1].get_ylim()[1])
         self.ui.sb_left.setValue(self.canvas.ax[0].get_xlim()[0])
@@ -197,14 +199,24 @@ class MainWindow_EXEC():
         self.canvas.resizeX(self.ui.sb_left.value(),
                             self.ui.sb_right.value())
         
-    def update_current_position(self): 
-        return self.ui.curr_position.display(scan.get_pos(self.s))
-        print(scan.get_pos(self.s))
+    def update_current_position(self):
+        self.pos = Position(self.s)
+        self.qthread = QThread()
+        self.pos.moveToThread(self.qthread)
+        self.qthread.started.connect(self.pos.get_position)
+        self.pos.value.connect(self.update_spinbox)
+        self.qthread.start()
+        self.qthread.quit()
+        
+    def update_spinbox(self):
+        while True:
+            self.ui.curr_position.setValue(scan.get_pos(self.s))
+            time.sleep(.5)
+            
+    def update_position(self):
+        t = threading.Thread(target=self.update_spinbox)
+        t.start()
     
-    def position_timer(self):
-        timer = QTimer()
-        timer.timeout.connect(self.update_current_position)
-        timer.start(1000)
 
 if __name__ == "__main__":
     MainWindow_EXEC()
