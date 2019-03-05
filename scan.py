@@ -110,7 +110,8 @@ def move_position(position,velocity,socket):
     """Moves controller to position (in cm)
     """
     cmd = 'MOVEABS D %s F %s\n' %(position,velocity)
-    return send_cmd(cmd,socket)
+    send_cmd(cmd,socket)
+    return get_pos(socket)
     
 def enable(socket):
     send_cmd('ENABLE\n',socket)

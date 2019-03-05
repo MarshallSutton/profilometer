@@ -65,8 +65,8 @@ class Canvas(FingureCanvas):
         self.ax.append(self.fig.add_subplot(2,1,2))
         self.ax[0].set(ylim=(-10,10))
         self.ax[1].set(ylim=(50,260))
-        self.ax[1].set_xlabel('Distance (mm)')
-        self.ax[0].set_ylabel('Position ('+r'$\mu$'+'m)')
+        self.ax[1].set_xlabel('Position (mm)')
+        self.ax[0].set_ylabel('Distance ('+r'$\mu$'+'m)')
         self.ax[1].set_ylabel('Light Intensity (0-255)')
         self.ax[1].grid(True)
         self.ax[0].grid(True)
@@ -82,16 +82,14 @@ class Canvas(FingureCanvas):
                 
         
         #timer
-        timer = QtCore.QTimer(self)
-        timer.timeout.connect(self.animate2)
-        timer.start(1000)
+          
        
     def update_graph(self,posit,dist,inty):
         self.dists.append(dist)
         self.pos.append(posit)
         self.ints.append(inty)
         self.resizeY(self.dists[0]-10,self.dists[0]+10)
-        
+        self.animate2()
    
     def animate2(self):
         #print(self.pos,self.dists,self.ints)
@@ -112,7 +110,7 @@ class Canvas(FingureCanvas):
            
         self.laserscan.values.connect(self.update_graph)
         self.qthread.start()
-        self.qthread.quit()
+        self.laserscan.end.connect(self.qthread.quit)
         
     def resizeX(self,start,end):
         self.ax[0].set(xlim=(start,end))
