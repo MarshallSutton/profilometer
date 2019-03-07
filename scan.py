@@ -121,11 +121,8 @@ def moveinc(distance,velocity,socket):
     """
     Move the stage incrementally, distance in milimeters
     """
-    
-      
-    
     cmd = 'MOVEINC D %s F %s\n' %(distance,velocity)
-    print(cmd)
+    #print(cmd)
     output = send_cmd(cmd,socket)
     
     return output.decode('utf-8').strip('\n')

@@ -126,17 +126,17 @@
       <string>mm</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btn_Clear">
+    <widget class="QPushButton" name="btn_stop">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>140</x>
        <y>140</y>
        <width>80</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>Clear</string>
+      <string>Stop SCAN</string>
      </property>
     </widget>
    </widget>
@@ -175,10 +175,10 @@
         <number>150</number>
        </property>
        <property name="singleStep">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>100</number>
        </property>
        <property name="displayIntegerBase">
         <number>10</number>
@@ -204,7 +204,7 @@
         <number>5</number>
        </property>
        <property name="value">
-        <number>25</number>
+        <number>125</number>
        </property>
       </widget>
      </item>
@@ -227,7 +227,7 @@
         <number>5</number>
        </property>
        <property name="value">
-        <number>75</number>
+        <number>150</number>
        </property>
       </widget>
      </item>
@@ -250,7 +250,7 @@
         <number>5</number>
        </property>
        <property name="value">
-        <number>100</number>
+        <number>150</number>
        </property>
       </widget>
      </item>
@@ -401,6 +401,19 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="btn_Clear">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>530</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clear</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -424,6 +437,7 @@
     <addaction name="action_Save"/>
     <addaction name="actionLoad"/>
     <addaction name="action_Print"/>
+    <addaction name="action_Close"/>
    </widget>
    <widget class="QMenu" name="menuTIlt_Correction">
     <property name="title">
@@ -459,6 +473,11 @@
   <action name="action_Print">
    <property name="text">
     <string>&amp;Print</string>
+   </property>
+  </action>
+  <action name="action_Close">
+   <property name="text">
+    <string>&amp;Close</string>
    </property>
   </action>
  </widget>

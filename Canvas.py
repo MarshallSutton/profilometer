@@ -99,11 +99,11 @@ class Canvas(FingureCanvas):
         self.draw()
 
             
-    def laser(self,nstep,distance,connected):
+    def laser(self,nstep,distance,socket,serial,connected):
         self.dists = []
         self.ints = []
         self.pos = []#range(0,distance,int(distance/nstep))
-        self.laserscan = Laser_scan(nstep,distance,connected)
+        self.laserscan = Laser_scan(nstep,distance,socket,serial,connected)
         self.qthread = QtCore.QThread()
         self.laserscan.moveToThread(self.qthread)
         self.qthread.started.connect(self.laserscan.run_laser)
@@ -111,6 +111,11 @@ class Canvas(FingureCanvas):
         self.laserscan.values.connect(self.update_graph)
         self.qthread.start()
         self.laserscan.end.connect(self.qthread.quit)
+        
+    def laser_stop(self):
+        if self.qthread is not None:  
+            self.qthread.quit()
+            self.laserscan.STOP_BUTTON_PRESSED = True
         
     def resizeX(self,start,end):
         self.ax[0].set(xlim=(start,end))
@@ -129,6 +134,7 @@ class Canvas(FingureCanvas):
     def clear(self):
         self.dists = []
         self.ints = []
+        self.pos = []
         self.ax[0].lines = []
         self.ax[1].lines = []
         self.draw()
@@ -146,7 +152,7 @@ class Canvas(FingureCanvas):
         self.dists = data['distance']
         self.ints = data['ints'] 
         self.pos = data['pos']
-        self.draw()
+        self.animate2()
         
     def add_title(self,title):
         self.fig.suptitle(title)

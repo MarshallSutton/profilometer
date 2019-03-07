@@ -18,42 +18,42 @@ class Laser_scan(QObject):
     end = pyqtSignal()
     
     
-    def __init__(self,nstep,distance,connected=True):
+    def __init__(self,nstep,distance,socket,serial,connected=True):
         QtCore.QThread.__init__(self)
         #self.s,self.ser = scan.init_devices()
         self.connected = connected
         self.nstep = nstep
         self.distance = distance
         self.start = 0
+        self.STOP_BUTTON_PRESSED = False
+        self.socket = socket
+        self.serial = serial
         
         
     def run_laser(self):
+        
         if self.connected:
             self.s,self.ser = scan.init_devices(rehome=False)
             for x in range(int(self.nstep)):
-                
-                #swithch these two for random plot
-                posit,dist,inty = scan.scan(self.nstep,self.distance,self.s,self.ser)
-                #print(dist, posit, inty)# = self.fake_laser()
-               
-                #switch these two for random plot
-                #self.fake_pos()
-                self.values.emit(posit,dist,inty)
-                #self.values.connect(self.print_things)
+                if not self.STOP_BUTTON_PRESSED:
+                    #swithch these two for random plot
+                    posit,dist,inty = scan.scan(self.nstep,self.distance,self.socket,self.serial)
+                    self.values.emit(posit,dist,inty)
+                    #self.values.connect(self.print_things)
+                else:
+                    pass
             
         else:
             for x in range(int(self.nstep)):
-                posit,dist,inty = self.fake_laser()
-                print (posit,dist,inty)#import pdb; pdb.set_trace(
-                self.values.emit(posit,dist,inty)
-                self.values.connect(self.print_things)
-                time.sleep(1)
+                if not self.STOP_BUTTON_PRESSED:
+                    posit,dist,inty = self.fake_laser()
+                    print (posit,dist,inty)#import pdb; pdb.set_trace(
+                    self.values.emit(posit,dist,inty)
+                    self.values.connect(self.print_things)
+                    time.sleep(1)
                 
         self.end.emit()
-    """    
-    @pyqtSlot(float,float,float)
-        def 
-       """         
+         
     def print_things(posi,dis,iny):
         print (posi,dis,iny, 'from laser_scan')        
             

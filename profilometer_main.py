@@ -73,6 +73,7 @@ class MainWindow_EXEC():
         self.ui.btn_goto3.clicked.connect(self.goto3)
         self.ui.btn_goto3_2.clicked.connect(self.goto4)
         self.ui.btn_Clear.clicked.connect(self.clear)
+        self.ui.btn_stop.clicked.connect(self.stop_scan)
         
         self.ui.sb_lower_limit.valueChanged.connect(self.changeY)
         self.ui.sb_upper_limit.valueChanged.connect(self.changeY)
@@ -82,6 +83,7 @@ class MainWindow_EXEC():
         self.ui.action_Save.triggered.connect(self.save)
         self.ui.actionLoad.triggered.connect(self.load)
         self.ui.action_Print.triggered.connect(self.print_page)
+        self.ui.action_Close.triggered.connect(self.close)
         #self.position_timer()
         #self.update_current_position()# 
         self.update_spinbox(scan.get_pos(self.s))
@@ -93,27 +95,23 @@ class MainWindow_EXEC():
     def goto1(self):
         loc = self.ui.sb_goto1.value()
         pos = self.moving(loc)
-        #scan.get_pos(self.s)
         self.update_spinbox(pos)
             #scan.move_position(loc,self.speed,self.s)
     
     def goto2(self):
         loc = self.ui.sb_goto2.value()
-        self.moving(loc)
-            #self.update_spinbox()
-            #scan.move_positioself.ui.curr_position display(scan.get_pos(self.s))n(loc,self.speed,self.s)
-            
+        pos = self.moving(loc)
+        self.update_spinbox(pos)
+        
     def goto3(self):
         loc = self.ui.sb_goto3.value()
-        self.moving(loc)
-            #self.update_spinbox()
-            #scan.move_position(loc,self.speed,self.s)
+        pos = self.moving(loc)
+        self.update_spinbox(pos)
             
     def goto4(self):
         loc = self.ui.sb_goto3_2.value()
-        self.moving(loc)
-            #self.update_spinbox()
-            #scan.move_position(loc,self.speed,self.s)
+        pos = self.moving(loc)
+        self.update_spinbox(pos)
             
     def moving(self,loc):
         #pool = mp.Pool(processes=1)
@@ -158,8 +156,14 @@ class MainWindow_EXEC():
         self.start = scan.get_pos(self.s)
         self.end = self.start + distance+10
         self.canvas.resizeX(self.start,self.end)
-        self.canvas.laser(nsamples,distance,connected=True)
-        #self.set_spin_box_values()
+        self.canvas.laser(nsamples,distance,self.s,self.ser,connected=True)
+        
+    def stop_scan(self):
+        self.canvas.laser_stop()
+        
+    def close(self):
+        self.stop_scan()
+        self.MainWindow.close()
         
     def set_spin_box_values(self):
         self.ui.sb_lower_limit.setValue(self.canvas.ax[1].get_ylim()[0])
