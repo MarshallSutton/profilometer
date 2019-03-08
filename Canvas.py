@@ -120,10 +120,12 @@ class Canvas(FingureCanvas):
     def resizeX(self,start,end):
         self.ax[0].set(xlim=(start,end))
         self.ax[1].set(xlim=(start,end))
-        
+        self.draw()
         
     def resizeY(self,start,end):
-        self.ax[0].set(ylim=(start,end))
+        self.ax[0].set_ylim(start,end)
+        self.draw()
+        
         
     def correct_tilt(self):
         Yp = tilt.tilt_corr(self.pos,self.dists)
@@ -175,3 +177,4 @@ class Canvas(FingureCanvas):
     
 if __name__ == '__main__':
     canvas = Canvas()
+    
