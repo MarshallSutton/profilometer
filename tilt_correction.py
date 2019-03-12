@@ -43,25 +43,48 @@ Created on Wed Dec 19 09:57:18 2018
 import numpy as np
 import matplotlib.pyplot as plt
 
+tilt_slope = -.07
+
 def tilt_corr(xi,yi):
     if len(xi)!=len(yi):
         return yi
-    #tilt = np.arange(100)*1.2-20
+    fulcrum = (xi[-1]-xi[0])/2
     A = np.array([ xi, np.ones(len(xi))])
     Y = np.array(yi)
     w = np.linalg.lstsq(A.T,Y)[0] # obtaining the parameters
-    line = w[0]*A[0,:]#+w[1]
+    line = w[0]*A[0,:]+w[1]
+    yi = yi+w[0]*(fulcrum-xi)
+    
     print(w[0],w[1])
-    return Y-line,line,Y
+    return yi,line,Y
+
+def tilt_corr_fulcrum(xi,yi,fulcrum):
+    if len(xi)!=len(yi):
+        return yi
+    #tilt = np.arange(100)*1.2-20
+    
+    A = np.array([ xi, np.ones(len(xi))])
+    Y = np.array(yi)
+    w = np.linalg.lstsq(A.T,Y)[0] # obtaining the parameters
+    line = w[0]*A[0,:]+w[1]
+    #yi[xi<fulcrum]= yi[xi<fulcrum]+w[0]*fulcrum+w[1]-w[0]*w[0]*xi[xi<fulcrum]-w[1]
+    #yi[xi>=fulcrum] = yi[xi>=fulcrum]+w[0]*xi[xi>=fulcrum]+w[1] 
+    yi = yi+w[0]*(fulcrum-xi)
+    
+    print(w[0],w[1])
+    return yi,line,Y
 
 if __name__ == '__main__':
     xi = np.arange(100)
     yi = np.random.rand(100)
+    yj = tilt_slope*xi+yi+1
     
-    Yp,line,Y = tilt_corr(xi,yi)
+    Yp,line,Y = tilt_corr(xi,yj)
     print(Yp[:10])
-    plt.plot(xi,yi,color='blue')
-    plt.plot(xi,Yp,color='red')
-    plt.plot(xi,line,color='green')
+    plt.plot(xi,Y,color='blue',label='Data')
+    plt.plot(xi,Yp,color='red',label = 'Tilt Corrected Data')
+    plt.plot(xi,line,color='green',label = 'Best Fit')
+    plt.legend()
+    plt.ylim(-2,10)
     plt.show()
     

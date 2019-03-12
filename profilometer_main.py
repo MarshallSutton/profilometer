@@ -1,7 +1,7 @@
  #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# /home/profilometer/my_main.py
+# /home/profilometer/profilometer_main.py
 #
 # This script kicks of the profilometer main GUI.
 #
