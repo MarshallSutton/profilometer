@@ -43,7 +43,7 @@ Created on Wed Dec 19 09:57:18 2018
 import numpy as np
 import matplotlib.pyplot as plt
 
-tilt_slope = -.07
+tilt_slope = .03
 
 def tilt_corr(xi,yi):
     if len(xi)!=len(yi):
@@ -51,12 +51,13 @@ def tilt_corr(xi,yi):
     fulcrum = (xi[-1]-xi[0])/2
     A = np.array([ xi, np.ones(len(xi))])
     Y = np.array(yi)
+    X = np.array(xi)
     w = np.linalg.lstsq(A.T,Y)[0] # obtaining the parameters
     line = w[0]*A[0,:]+w[1]
-    yi = yi+w[0]*(fulcrum-xi)
+    Yp = Y+w[0]*(fulcrum-X)
     
     print(w[0],w[1])
-    return yi,line,Y
+    return Yp,line, Y
 
 def tilt_corr_fulcrum(xi,yi,fulcrum):
     if len(xi)!=len(yi):
@@ -72,7 +73,7 @@ def tilt_corr_fulcrum(xi,yi,fulcrum):
     yi = yi+w[0]*(fulcrum-xi)
     
     print(w[0],w[1])
-    return yi,line,Y
+    return Yp,line,Y
 
 if __name__ == '__main__':
     xi = np.arange(100)

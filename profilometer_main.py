@@ -62,7 +62,7 @@ class MainWindow_EXEC():
         self.yend = 5
         self.timer = None
         
-        self.s,self.ser = scan.init_devices(rehome=False)
+        self.s,self.ser = scan.init_devices(rehome=True)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )

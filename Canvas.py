@@ -129,9 +129,10 @@ class Canvas(FingureCanvas):
         
     def correct_tilt(self):
         Yp = tilt.tilt_corr(self.pos,self.dists)
-        self.ax[0].lines.pop(0)
-        self.dists = Yp[0 ]
-        print(Yp)
+        self.ax[0].lines = []
+        self.dists = Yp
+        #print(Yp)
+        self.animate2()
         
     def clear(self):
         self.dists = []
