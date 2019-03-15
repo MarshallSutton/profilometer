@@ -40,7 +40,7 @@ import os
 import socket
 import serial
 import statistics
-import numpy as np
+import numpy as np  
 #import matplotlib 
 #import matplotlib.pyplot as plt
 import random
@@ -49,7 +49,7 @@ import random
 #from matplotlib.figure import Figure
 
 
-def init_devices(rehome=True):
+def init_devices(rehome=False):
     s = connect()
     ser = laser_connect()
     enable(s)
@@ -72,7 +72,7 @@ def scan(nsample,distance,s,ser):
     intensity.append(ints)
     positions.append(pos)
     
-    move = distance/nsample
+    move = distance
     err = moveinc(move,10,s)
     if err !='%':
         print('laser did not move')
@@ -131,6 +131,8 @@ def sign(string):
     try:
         if string[0]=='+':
             flot = float(string[1:])
+        elif string == 'OP':
+            flot = 0
         else:
             flot = float(string)
     except Exception as e:
@@ -145,6 +147,7 @@ def laser_measurement(ser):
     ser.write(b'OP,3\r')
     ser.write(b'SD,SC,3\r')
     
+    
     meas = ser.readline().decode('ascii').split('\r')
     meas.pop(-1)
     values = []
@@ -154,13 +157,18 @@ def laser_measurement(ser):
     for mea in meas:
         
         meat = mea.split(',')
+        print(meat)
         values.append(sign(meat[1]))
         intensity.append(sign(meat[3]))
         position.append(sign(meat[2]))
-    value = statistics.mean(values) 
-    intent = statistics.mean(intensity)
-    print(position)
-    return value, intent
+    try:
+        value = statistics.mean(values) 
+        intent = statistics.mean(intensity)
+        print(position)
+        return value, intent
+    except statistics.StatisticsError:
+        return 0,200
+    
     
 
   
@@ -174,6 +182,7 @@ if __name__ == "__main__":
     
     
     s,ser = init_devices()
+    #ser.write(b'VR\r')
     #s.close()
-    print(laser_measurement(ser))
+    laser_measurement(ser)
     #scan(5,10,s,ser)

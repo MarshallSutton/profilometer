@@ -126,12 +126,16 @@ class Canvas(FingureCanvas):
         self.ax[0].set_ylim(start,end)
         self.draw()
         
+    def resizeY_intensity(self,start,end):
+        self.ax[1].set_ylim(start,end)
+        self.draw()
+        
         
     def correct_tilt(self):
-        Yp = tilt.tilt_corr(self.pos,self.dists)
+        Yp,line,Y = tilt.tilt_corr(self.pos,self.dists)
         self.ax[0].lines = []
         self.dists = Yp
-        #print(Yp)
+        print(Yp)
         self.animate2()
         
     def clear(self):
@@ -143,18 +147,19 @@ class Canvas(FingureCanvas):
         self.draw()
         #self.animate2()
         
-    def save(self,filename):
+    def save(self,filename,comments='None'):
+        head = comments+'\n'+'%\tDistance (microns)  Light Intensity (0-255)\tPosition (mm)'
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
-        np.savez(filename,distance=distsnp,ints=intsnp,pos=posnp)
+        np.savetxt(filename,np.c_[distsnp,intsnp,posnp],header=head)
+        
         
     def load(self,filename):
         self.clear()
-        data = np.load(filename)
-        self.dists = data['distance']
-        self.ints = data['ints'] 
-        self.pos = data['pos']
+        self.dists,self.ints,self.pos= np.loadtxt(filename,unpack=True)
+        self.resizeY(self.dists[0]-10,self.dists[0]+10)
+        self.resizeX(self.pos[0],self.pos[-1])
         self.animate2()
         
     def add_title(self,title):

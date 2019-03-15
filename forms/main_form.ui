@@ -30,9 +30,9 @@
    <widget class="QGroupBox" name="ScanParameters">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>510</y>
-      <width>271</width>
+      <x>270</x>
+      <y>520</y>
+      <width>221</width>
       <height>181</height>
      </rect>
     </property>
@@ -68,22 +68,6 @@
       <number>10</number>
      </property>
     </widget>
-    <widget class="QSpinBox" name="sb_sample_spacing">
-     <property name="geometry">
-      <rect>
-       <x>140</x>
-       <y>70</y>
-       <width>47</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>50</number>
-     </property>
-    </widget>
     <widget class="QLabel" name="lbl_Nsamples">
      <property name="geometry">
       <rect>
@@ -110,7 +94,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Total Distance (mm)</string>
+      <string>Interval (mm)</string>
      </property>
     </widget>
     <widget class="QLabel" name="lbl_microns">
@@ -129,7 +113,7 @@
     <widget class="QPushButton" name="btn_stop">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>130</x>
        <y>140</y>
        <width>80</width>
        <height>23</height>
@@ -139,11 +123,30 @@
       <string>Stop SCAN</string>
      </property>
     </widget>
+    <widget class="QDoubleSpinBox" name="doubleSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>70</y>
+       <width>66</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="singleStep">
+      <double>0.050000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="gb_">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>10</x>
       <y>530</y>
       <width>251</width>
       <height>191</height>
@@ -161,27 +164,24 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="sb_goto1">
+      <widget class="QDoubleSpinBox" name="sb_goto1">
        <property name="contextMenuPolicy">
         <enum>Qt::NoContextMenu</enum>
        </property>
        <property name="toolTipDuration">
         <number>2</number>
        </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
        <property name="minimum">
-        <number>-150</number>
+        <double>-10.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>150</number>
-       </property>
-       <property name="singleStep">
-        <number>0</number>
+        <double>300.000000000000000</double>
        </property>
        <property name="value">
-        <number>100</number>
-       </property>
-       <property name="displayIntegerBase">
-        <number>10</number>
+        <double>60.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -193,18 +193,18 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSpinBox" name="sb_goto2">
+      <widget class="QDoubleSpinBox" name="sb_goto2">
+       <property name="decimals">
+        <number>3</number>
+       </property>
        <property name="minimum">
-        <number>-150</number>
+        <double>-10.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>150</number>
-       </property>
-       <property name="singleStep">
-        <number>5</number>
+        <double>300.000000000000000</double>
        </property>
        <property name="value">
-        <number>125</number>
+        <double>100.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -216,18 +216,18 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSpinBox" name="sb_goto3">
+      <widget class="QDoubleSpinBox" name="sb_goto3">
+       <property name="decimals">
+        <number>3</number>
+       </property>
        <property name="minimum">
-        <number>-150</number>
+        <double>-10.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>150</number>
-       </property>
-       <property name="singleStep">
-        <number>5</number>
+        <double>300.000000000000000</double>
        </property>
        <property name="value">
-        <number>150</number>
+        <double>125.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -239,18 +239,18 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QSpinBox" name="sb_goto3_2">
+      <widget class="QDoubleSpinBox" name="sb_goto3_2">
+       <property name="decimals">
+        <number>3</number>
+       </property>
        <property name="minimum">
-        <number>-150</number>
+        <double>-10.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>150</number>
-       </property>
-       <property name="singleStep">
-        <number>5</number>
+        <double>300.000000000000000</double>
        </property>
        <property name="value">
-        <number>150</number>
+        <double>150.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -262,21 +262,21 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QSpinBox" name="curr_position">
+      <widget class="QDoubleSpinBox" name="curr_position">
        <property name="readOnly">
         <bool>true</bool>
        </property>
        <property name="buttonSymbols">
         <enum>QAbstractSpinBox::NoButtons</enum>
        </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
        <property name="minimum">
-        <number>-100</number>
+        <double>-10.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="value">
-        <number>100</number>
+        <double>300.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -404,14 +404,107 @@
    <widget class="QPushButton" name="btn_Clear">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>530</y>
+      <x>510</x>
+      <y>670</y>
       <width>80</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Clear</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>300</y>
+      <width>81</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QSpinBox" name="sb_lower_limit_intensity">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>90</y>
+       <width>47</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>50</number>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="sb_upper_limit_intensity">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>47</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>50</number>
+     </property>
+     <property name="maximum">
+      <number>300</number>
+     </property>
+     <property name="value">
+      <number>250</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_limit_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>59</width>
+       <height>15</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Set Limits</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTextBrowser" name="comments">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>540</y>
+      <width>231</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>false</bool>
+    </property>
+    <property name="overwriteMode">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="comment_label">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>510</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Comments</string>
     </property>
    </widget>
   </widget>
@@ -482,38 +575,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>btn_go1</sender>
-   <signal>clicked()</signal>
-   <receiver>sb_goto1</receiver>
-   <slot>selectAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>39</x>
-     <y>355</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>92</x>
-     <y>360</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_goto2</sender>
-   <signal>clicked()</signal>
-   <receiver>sb_goto2</receiver>
-   <slot>selectAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>42</x>
-     <y>393</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>90</x>
-     <y>398</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

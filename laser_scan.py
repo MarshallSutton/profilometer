@@ -54,10 +54,10 @@ class Laser_scan(QObject):
                 
         self.end.emit()
          
-    def print_things(posi,dis,iny):
+    def print_things(posi,dis,iny):  
         print (posi,dis,iny, 'from laser_scan')        
             
-    def run(self):
+    def run(s0elf):
         # your logic here
         self.run_laser()
         

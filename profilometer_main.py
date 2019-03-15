@@ -62,7 +62,7 @@ class MainWindow_EXEC():
         self.yend = 5
         self.timer = None
         
-        self.s,self.ser = scan.init_devices(rehome=True)
+        self.s,self.ser = scan.init_devices(rehome=False)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )
@@ -77,6 +77,8 @@ class MainWindow_EXEC():
         
         self.ui.sb_lower_limit.valueChanged.connect(self.changeY)
         self.ui.sb_upper_limit.valueChanged.connect(self.changeY)
+        self.ui.sb_lower_limit_intensity.valueChanged.connect(self.changeY_intensity)
+        self.ui.sb_upper_limit_intensity.valueChanged.connect(self.changeY_intensity)
         self.ui.sb_left.valueChanged.connect(self.changeX)
         self.ui.sb_right.valueChanged.connect(self.changeX)
         self.ui.actionTilt_Correct.triggered.connect(self.canvas.correct_tilt)
@@ -152,9 +154,9 @@ class MainWindow_EXEC():
     def scan_button(self):
         self.canvas.clear()
         nsamples = self.ui.sb_Npoints.value()
-        distance = self.ui.sb_sample_spacing.value()
+        distance = self.ui.doubleSpinBox.value()
         self.start = scan.get_pos(self.s)
-        self.end = self.start + distance+10
+        self.end = self.start + distance*nsamples+10
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamples,distance,self.s,self.ser,connected=True)
         
@@ -179,7 +181,8 @@ class MainWindow_EXEC():
         saved, _ = QtWidgets.QFileDialog.getSaveFileName()
         #print(saved)
         title = os.path.basename(saved)
-        self.canvas.save(saved)
+        comments = self.ui.comments.toPlainText()
+        self.canvas.save(saved,comments=comments)
         self.canvas.add_title(title)
         self.canvas.print_fig(saved)
         
@@ -187,8 +190,18 @@ class MainWindow_EXEC():
         try:
             loaded,_ = QtWidgets.QFileDialog.getOpenFileName()
             self.canvas.load(loaded)
+            self.ui.comments.setPlainText(self.get_comments(loaded))
         except Exception as e:
-            print('unable to load because %s' %e.message)
+            print('unable to load because %s' % e.message())
+            
+    def get_comments(self,filename):
+        with open(filename,'r') as name:
+            comment = name.readlines()[0]
+            if comment[:1] == '#%':
+                return ''
+            else:
+                comment=comment[2:]
+            return comment
             
     def print_page(self):
         saved, _ = QtWidgets.QFileDialog.getSaveFileName()
@@ -199,6 +212,10 @@ class MainWindow_EXEC():
     def changeY(self):
         self.canvas.resizeY(self.ui.sb_lower_limit.value(),
                             self.ui.sb_upper_limit.value())
+        
+    def changeY_intensity(self):
+        self.canvas.resizeY_intensity(self.ui.sb_lower_limit_intensity.value(),
+                            self.ui.sb_upper_limit_intensity.value())
             
         
     def changeX(self):
