@@ -94,8 +94,8 @@ class Canvas(FingureCanvas):
     def animate2(self):
         #print(self.pos,self.dists,self.ints)
         #print(len(self.dists))
-        self.ax[0].plot(self.pos[:len(self.dists)],self.dists,'b-o')
-        self.ax[1].plot(self.pos[:len(self.dists)],self.ints,'r-o')
+        self.ax[0].plot(self.pos[:len(self.dists)],self.dists,'b-o',markersize=3)
+        self.ax[1].plot(self.pos[:len(self.dists)],self.ints,'r-o',markersize=3)
         self.draw()
 
             

@@ -84,11 +84,13 @@ class MainWindow_EXEC():
         self.ui.actionTilt_Correct.triggered.connect(self.canvas.correct_tilt)
         self.ui.action_Save.triggered.connect(self.save)
         self.ui.actionLoad.triggered.connect(self.load)
-        self.ui.action_Print.triggered.connect(self.print_page)
+        self.ui.action_Print.triggered.connect(self.qt_print)
         self.ui.action_Close.triggered.connect(self.close)
         #self.position_timer()
         #self.update_current_position()# 
         self.update_spinbox(scan.get_pos(self.s))
+        self.ui.limit_lable.setHidden(True)
+        
         
         
         self.MainWindow.show()
@@ -156,7 +158,7 @@ class MainWindow_EXEC():
         nsamples = self.ui.sb_Npoints.value()
         distance = self.ui.doubleSpinBox.value()
         self.start = scan.get_pos(self.s)
-        self.end = self.start + distance*nsamples+10
+        self.end = self.start + distance*nsamples
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamples,distance,self.s,self.ser,connected=True)
         
@@ -208,6 +210,16 @@ class MainWindow_EXEC():
         self.canvas.print_fig(saved[:-4])
         cmd = 'gnome-open %s' % saved
         os.system(cmd)
+        
+    def qt_print(self):
+        printer= QtPrintSupport.QPrinter()
+        painter = QtGui.QPainter()
+        painter.begin(printer)
+        screen = self.MainWindow.grab()
+        painter.drawPixmap(10,10,screen)
+        painter.end()
+        
+        
        
     def changeY(self):
         self.canvas.resizeY(self.ui.sb_lower_limit.value(),
@@ -234,6 +246,12 @@ class MainWindow_EXEC():
         
     def update_spinbox(self,position):
         self.ui.curr_position.setValue(position)
+        if position == 0 or 200:
+            self.ui.limit_lable.setVisible(True)
+        else:
+            self.ui.limit_lable.setVisible(False)
+            print('not at end')
+            
         #print(scan.get_pos(self.s))
     
 
