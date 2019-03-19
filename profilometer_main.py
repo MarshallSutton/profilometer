@@ -114,8 +114,8 @@ class MainWindow_EXEC():
             
     def goto4(self):
         loc = self.ui.sb_goto3_2.value()
-        pos = self.moving(loc)
-        self.update_spinbox(pos)
+        pos = scan.moveinc(loc,self.speed,self.s)
+        self.update_spinbox(scan.get_pos(pos))
             
     def moving(self,loc):
         #pool = mp.Pool(processes=1)
@@ -155,12 +155,14 @@ class MainWindow_EXEC():
         
     def scan_button(self):
         self.canvas.clear()
+        self.ui.btn_SCAN.setEnabled(False)
         nsamples = self.ui.sb_Npoints.value()
         distance = self.ui.doubleSpinBox.value()
         self.start = scan.get_pos(self.s)
         self.end = self.start + distance*nsamples
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamples,distance,self.s,self.ser,connected=True)
+        self.ui.btn_SCAN.setEnabled(True)
         
     def stop_scan(self):
         self.canvas.laser_stop()
@@ -174,7 +176,7 @@ class MainWindow_EXEC():
         self.ui.sb_upper_limit.setValue(self.canvas.ax[1].get_ylim()[1])
         self.ui.sb_left.setValue(self.canvas.ax[0].get_xlim()[0])
         self.ui.sb_right.setVprint(scan.get_pos(self.s))
-        #alue(self.canvas.ax[0].get_xlim()[1])
+        #alue(self.canvas.ax[0].get_xlim()[1])-10.000000
         
     def clear(self):
         self.canvas.clear()
@@ -199,7 +201,7 @@ class MainWindow_EXEC():
     def get_comments(self,filename):
         with open(filename,'r') as name:
             comment = name.readlines()[0]
-            if comment[:1] == '#%':
+            if comment[:9] == '\n\tDistance':
                 return ''
             else:
                 comment=comment[2:]
@@ -224,7 +226,7 @@ class MainWindow_EXEC():
     def changeY(self):
         self.canvas.resizeY(self.ui.sb_lower_limit.value(),
                             self.ui.sb_upper_limit.value())
-        
+        -10.000000
     def changeY_intensity(self):
         self.canvas.resizeY_intensity(self.ui.sb_lower_limit_intensity.value(),
                             self.ui.sb_upper_limit_intensity.value())
@@ -235,6 +237,7 @@ class MainWindow_EXEC():
                             self.ui.sb_right.value())
         
     def update_current_position(self):
+        # Not used. May be used later to implement threads
         self.laser_pos = Position(self.s)
         self.qthread2 = QThread()
         self.laser_pos.moveToThread(self.qthread2)
@@ -246,7 +249,7 @@ class MainWindow_EXEC():
         
     def update_spinbox(self,position):
         self.ui.curr_position.setValue(position)
-        if position == 0 or 200:
+        if position <= 0 or position >= 200:
             self.ui.limit_lable.setVisible(True)
         else:
             self.ui.limit_lable.setVisible(False)

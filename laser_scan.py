@@ -34,6 +34,7 @@ class Laser_scan(QObject):
         
         if self.connected:
             self.s,self.ser = scan.init_devices(rehome=False)
+            #self.ser.write(b'SD,SC,3\r')
             for x in range(int(self.nstep)):
                 if not self.STOP_BUTTON_PRESSED:
                     #swithch these two for random plot

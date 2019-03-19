@@ -123,9 +123,9 @@ def moveinc(distance,velocity,socket):
     """
     cmd = 'MOVEINC D %s F %s\n' %(distance,velocity)
     #print(cmd)
-    output = send_cmd(cmd,socket)
+    send_cmd(cmd,socket)
     
-    return output.decode('utf-8').strip('\n')
+    return get_pos(socket)
 
 def sign(string):
     try:
@@ -144,8 +144,8 @@ def sign(string):
 def laser_measurement(ser):
     
     #ser.write(b'SD,SC,1\r')
+    #  ser.write(b'SD,SC,3\r')
     ser.write(b'OP,3\r')
-    ser.write(b'SD,SC,3\r')
     
     
     meas = ser.readline().decode('ascii').split('\r')
@@ -164,10 +164,10 @@ def laser_measurement(ser):
     try:
         value = statistics.mean(values) 
         intent = statistics.mean(intensity)
-        print(position)
+        #print(position)
         return value, intent
     except statistics.StatisticsError:
-        return 0,200
+        pass
     
     
 
@@ -184,5 +184,5 @@ if __name__ == "__main__":
     s,ser = init_devices()
     #ser.write(b'VR\r')
     #s.close()
-    laser_measurement(ser)
+    print(laser_measurement(ser))
     #scan(5,10,s,ser)

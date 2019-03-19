@@ -297,7 +297,7 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-10.000000000000000</double>
+        <double>-200.000000000000000</double>
        </property>
        <property name="maximum">
         <double>300.000000000000000</double>
@@ -320,7 +320,7 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-10.000000000000000</double>
+        <double>-200.000000000000000</double>
        </property>
        <property name="maximum">
         <double>300.000000000000000</double>
@@ -343,7 +343,7 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-10.000000000000000</double>
+        <double>-200.000000000000000</double>
        </property>
        <property name="maximum">
         <double>300.000000000000000</double>
@@ -356,7 +356,7 @@
      <item row="3" column="0">
       <widget class="QPushButton" name="btn_goto3_2">
        <property name="text">
-        <string>Go</string>
+        <string>Move Index</string>
        </property>
       </widget>
      </item>
@@ -366,13 +366,13 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-10.000000000000000</double>
+        <double>-200.000000000000000</double>
        </property>
        <property name="maximum">
         <double>300.000000000000000</double>
        </property>
        <property name="value">
-        <double>150.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -395,7 +395,7 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-10.000000000000000</double>
+        <double>-100.000000000000000</double>
        </property>
        <property name="maximum">
         <double>300.000000000000000</double>

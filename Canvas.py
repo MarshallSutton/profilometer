@@ -135,6 +135,7 @@ class Canvas(FingureCanvas):
         Yp,line,Y = tilt.tilt_corr(self.pos,self.dists)
         self.ax[0].lines = []
         self.dists = Yp
+        self.ax[0].plot(self.pos[:len(self.dists)],Y,'g-o',markersize=3)
         print(Yp)
         self.animate2()
         
@@ -148,16 +149,16 @@ class Canvas(FingureCanvas):
         #self.animate2()
         
     def save(self,filename,comments='None'):
-        head = comments+'\n'+'%\tDistance (microns)  Light Intensity (0-255)\tPosition (mm)'
+        head = comments+'\n'+'\tDistance (microns)  Light Intensity (0-255)\tPosition (mm)'
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
-        np.savetxt(filename,np.c_[distsnp,intsnp,posnp],header=head)
+        np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head)
         
         
     def load(self,filename):
         self.clear()
-        self.dists,self.ints,self.pos= np.loadtxt(filename,unpack=True)
+        self.pos, self.dists,self.ints= np.loadtxt(filename,unpack=True)
         self.resizeY(self.dists[0]-10,self.dists[0]+10)
         self.resizeX(self.pos[0],self.pos[-1])
         self.animate2()

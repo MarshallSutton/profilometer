@@ -43,11 +43,11 @@ Created on Wed Dec 19 09:57:18 2018
 import numpy as np
 import matplotlib.pyplot as plt
 
-tilt_slope = .03
+tilt_slope = .4
 
 def tilt_corr(xi,yi):
     if len(xi)!=len(yi):
-        return yi
+        return yi 
     fulcrum = (xi[-1]-xi[0])/2
     A = np.array([ xi, np.ones(len(xi))])
     Y = np.array(yi)
@@ -77,8 +77,8 @@ def tilt_corr_fulcrum(xi,yi,fulcrum):
 
 if __name__ == '__main__':
     xi = np.arange(100)
-    yi = np.random.rand(100)
-    yj = tilt_slope*xi+yi+1
+    yi = np.random.rand(100)*20+10
+    yj = tilt_slope*xi+yi 
     
     Yp,line,Y = tilt_corr(xi,yj)
     print(Yp[:10])
@@ -86,6 +86,6 @@ if __name__ == '__main__':
     plt.plot(xi,Yp,color='red',label = 'Tilt Corrected Data')
     plt.plot(xi,line,color='green',label = 'Best Fit')
     plt.legend()
-    plt.ylim(-2,10)
+    plt.ylim(0,50)
     plt.show()
     
