@@ -44,7 +44,7 @@ import numpy as np
 import time
 from laser_scan import Laser_scan
 import tilt_correction as tilt
-
+import calibration
 
 class Canvas(FingureCanvas):
     
@@ -77,6 +77,7 @@ class Canvas(FingureCanvas):
         #self.draw()
         self.qthread = None
         self.laserscan = None
+        self.calibrate = calibration.Calibration()
         
         #super(Canvas,self).__init__(self,self.fig)
                 
@@ -172,7 +173,7 @@ class Canvas(FingureCanvas):
                          papertype= 'letter')
         self.fig.set_size_inches(7,4.5)
         
-    
+    def set_calibration(self,)
         
         
   
