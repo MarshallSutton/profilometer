@@ -48,7 +48,7 @@ tilt_slope = .4
 def tilt_corr(xi,yi):
     if len(xi)!=len(yi):
         return yi 
-    fulcrum = (xi[-1]-xi[0])/2
+    fulcrum = xi[0]+(xi[-1]-xi[0])/2
     A = np.array([ xi, np.ones(len(xi))])
     Y = np.array(yi)
     X = np.array(xi)

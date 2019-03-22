@@ -137,7 +137,6 @@ class Canvas(FingureCanvas):
         self.ax[0].lines = []
         self.dists = Yp
         self.ax[0].plot(self.pos[:len(self.dists)],Y,'g-o',markersize=3)
-        print(Yp)
         self.animate2()
         
     def clear(self):

@@ -112,7 +112,6 @@ def move_position(position,velocity,socket):
     cmd = 'MOVEABS D %s F %s\n' %(position,velocity)
     send_cmd(cmd,socket)
     return get_pos(socket)
-    
 def enable(socket):
     send_cmd('ENABLE\n',socket)
    
@@ -182,7 +181,8 @@ if __name__ == "__main__":
     
     
     s,ser = init_devices()
+    send_cmd('AXISSTATUS\n',s)
     #ser.write(b'VR\r')
     #s.close()
-    print(laser_measurement(ser))
+    #print(laser_measurement(ser))
     #scan(5,10,s,ser)
