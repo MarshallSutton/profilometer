@@ -32,7 +32,7 @@
      <rect>
       <x>270</x>
       <y>520</y>
-      <width>221</width>
+      <width>261</width>
       <height>181</height>
      </rect>
     </property>
@@ -42,7 +42,7 @@
     <widget class="QPushButton" name="btn_SCAN">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>110</y>
        <width>80</width>
        <height>23</height>
@@ -55,8 +55,8 @@
     <widget class="QSpinBox" name="sb_Npoints">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>70</y>
+       <x>10</x>
+       <y>60</y>
        <width>47</width>
        <height>24</height>
       </rect>
@@ -87,27 +87,17 @@
     <widget class="QLabel" name="lbl_sampleLength">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>30</y>
-       <width>91</width>
-       <height>16</height>
+       <x>90</x>
+       <y>20</y>
+       <width>51</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="text">
       <string>Interval (mm)</string>
      </property>
-    </widget>
-    <widget class="QLabel" name="lbl_microns">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>70</y>
-       <width>59</width>
-       <height>15</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>mm</string>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_stop">
@@ -126,8 +116,8 @@
     <widget class="QDoubleSpinBox" name="doubleSpinBox">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>70</y>
+       <x>80</x>
+       <y>60</y>
        <width>66</width>
        <height>24</height>
       </rect>
@@ -264,6 +254,35 @@
       <enum>Qt::PlainText</enum>
      </property>
     </widget>
+    <widget class="QDoubleSpinBox" name="sb_distance">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>60</y>
+       <width>66</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <double>220.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>25</y>
+       <width>59</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Total Distance</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="gb_">
     <property name="geometry">
@@ -277,132 +296,209 @@
     <property name="title">
      <string> Motion control distance along axis (mm)</string>
     </property>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="btn_go1">
-       <property name="text">
-        <string>Go</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QDoubleSpinBox" name="sb_goto1">
-       <property name="contextMenuPolicy">
-        <enum>Qt::NoContextMenu</enum>
-       </property>
-       <property name="toolTipDuration">
-        <number>2</number>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-200.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
-       </property>
-       <property name="value">
-        <double>60.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="btn_goto2">
-       <property name="text">
-        <string>Go</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="sb_goto2">
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-200.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
-       </property>
-       <property name="value">
-        <double>100.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="btn_goto3">
-       <property name="text">
-        <string>Go</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QDoubleSpinBox" name="sb_goto3">
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-200.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
-       </property>
-       <property name="value">
-        <double>125.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="btn_goto3_2">
-       <property name="text">
-        <string>Move Index</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QDoubleSpinBox" name="sb_goto3_2">
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-200.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="lbl_current_pos">
-       <property name="text">
-        <string>Current Position</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QDoubleSpinBox" name="curr_position">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-100.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>300.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QPushButton" name="btn_go1">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>30</y>
+       <width>80</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Go</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sb_goto1">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>30</y>
+       <width>124</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="toolTipDuration">
+      <number>2</number>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-200.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>60.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_goto2">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>55</y>
+       <width>80</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Go</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sb_goto2">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>55</y>
+       <width>124</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-200.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>100.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_goto3">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>80</y>
+       <width>80</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Go</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sb_goto3">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>80</y>
+       <width>124</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-200.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>125.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="sb_goto3_2">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>105</y>
+       <width>124</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>0.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>0.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_current_pos">
+     <property name="geometry">
+      <rect>
+       <x>12</x>
+       <y>161</y>
+       <width>97</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Current Position</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="curr_position">
+     <property name="geometry">
+      <rect>
+       <x>115</x>
+       <y>161</y>
+       <width>124</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="buttonSymbols">
+      <enum>QAbstractSpinBox::NoButtons</enum>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="minimum">
+      <double>-100.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>300.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="down_btn">
+     <property name="geometry">
+      <rect>
+       <x>63</x>
+       <y>110</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Move Index</string>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::DownArrow</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="up_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>31</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::UpArrow</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
@@ -529,7 +625,7 @@
    <widget class="QPushButton" name="btn_Clear">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>550</x>
       <y>670</y>
       <width>80</width>
       <height>23</height>
@@ -606,7 +702,7 @@
    <widget class="QTextBrowser" name="comments">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>550</x>
       <y>540</y>
       <width>231</width>
       <height>121</height>
@@ -622,7 +718,7 @@
    <widget class="QLabel" name="comment_label">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>560</x>
       <y>510</y>
       <width>71</width>
       <height>16</height>
@@ -635,7 +731,7 @@
    <widget class="QPushButton" name="btn_Clear_2">
     <property name="geometry">
      <rect>
-      <x>610</x>
+      <x>650</x>
       <y>670</y>
       <width>111</width>
       <height>23</height>
@@ -676,9 +772,16 @@
     </property>
     <addaction name="actionTilt_Correct"/>
    </widget>
+   <widget class="QMenu" name="menuRe_home">
+    <property name="title">
+     <string>Re-home</string>
+    </property>
+    <addaction name="actionInitialize_Axis"/>
+   </widget>
    <addaction name="menuProfilometer"/>
    <addaction name="menu_File"/>
    <addaction name="menuTIlt_Correction"/>
+   <addaction name="menuRe_home"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_File">
@@ -709,6 +812,11 @@
   <action name="action_Close">
    <property name="text">
     <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="actionInitialize_Axis">
+   <property name="text">
+    <string>Initialize Axis</string>
    </property>
   </action>
  </widget>

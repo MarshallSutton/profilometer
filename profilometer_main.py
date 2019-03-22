@@ -71,7 +71,8 @@ class MainWindow_EXEC():
         self.ui.btn_go1.clicked.connect(self.goto1)
         self.ui.btn_goto2.clicked.connect(self.goto2)
         self.ui.btn_goto3.clicked.connect(self.goto3)
-        self.ui.btn_goto3_2.clicked.connect(self.goto4)
+        self.ui.up_btn.clicked.connect(self.move_up)
+        self.ui.down_btn.clicked.connect(self.move_down)
         self.ui.btn_Clear.clicked.connect(self.clear)
         self.ui.btn_stop.clicked.connect(self.stop_scan)
         
@@ -86,6 +87,7 @@ class MainWindow_EXEC():
         self.ui.actionLoad.triggered.connect(self.load)
         self.ui.action_Print.triggered.connect(self.qt_print)
         self.ui.action_Close.triggered.connect(self.close)
+        self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         #self.position_timer()
         #self.update_current_position()# 
         self.update_spinbox(scan.get_pos(self.s))
@@ -94,7 +96,11 @@ class MainWindow_EXEC():
         
         
         self.MainWindow.show()
-        sys.exit(self.app.exec_()) 
+        sys.exit(self.app.exec_())
+        
+    def rehome(self):
+        scan.send_cmd('HOME\n',self.s)
+        
         
     def goto1(self):
         loc = self.ui.sb_goto1.value()
@@ -112,10 +118,15 @@ class MainWindow_EXEC():
         pos = self.moving(loc)
         self.update_spinbox(pos)
             
-    def goto4(self):
+    def move_up(self):
         loc = self.ui.sb_goto3_2.value()
-        pos = scan.moveinc(loc,self.speed,self.s)
-        self.update_spinbox(scan.get_pos(pos))
+        scan.moveinc(-loc,self.speed,self.s)
+        self.update_spinbox(scan.get_pos(self.s))
+            
+    def move_down(self):
+        loc = self.ui.sb_goto3_2.value()
+        scan.moveinc(loc,self.speed,self.s)
+        self.update_spinbox(scan.get_pos(self.s))
             
     def moving(self,loc):
         #pool = mp.Pool(processes=1)
@@ -157,12 +168,14 @@ class MainWindow_EXEC():
         self.canvas.clear()
         self.ui.btn_SCAN.setEnabled(False)
         nsamples = self.ui.sb_Npoints.value()
-        distance = self.ui.doubleSpinBox.value()
+        interval = self.ui.doubleSpinBox.value()
+        distance = self.ui.sb_distance.value()
+        nsamp,interva = self.pick2(nsamples,interval,distance)
         self.start = scan.get_pos(self.s)
         self.end = self.start + distance*nsamples
         self.canvas.resizeX(self.start,self.end)
-        self.canvas.laser(nsamples,distance,self.s,self.ser,connected=True)
-        self.ui.btn_SCAN.setEnabled(True)
+        self.canvas.laser(nsamp,interva,self.s,self.ser,connected=True)
+        self.ui.btn_SCAN.setEnabled(False)
         
     def stop_scan(self):
         self.canvas.laser_stop()
@@ -249,14 +262,23 @@ class MainWindow_EXEC():
         
     def update_spinbox(self,position):
         self.ui.curr_position.setValue(position)
-        if position <= 0 or position >= 200:
+        fault = scan.check_fault(self.s)
+        if fault == 32 or fault == 16:
             self.ui.limit_lable.setVisible(True)
         else:
             self.ui.limit_lable.setVisible(False)
             print('not at end')
             
         #print(scan.get_pos(self.s))
-    
+    def pick2(self,num_points,interval,distance):
+        if num_points != 0 and interval != 0:
+            return num_points, interval
+        if num_points != 0 and distance !=0 and interval == 0:
+            return num_points, distance/num_points
+        if num_points == 0 and distance !=0 and interval != 0:
+            return int(distance/interval), interval
+        else:
+            return 20,1.0
 
 if __name__ == "__main__":
     MainWindow_EXEC()

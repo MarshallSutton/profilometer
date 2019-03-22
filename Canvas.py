@@ -172,7 +172,7 @@ class Canvas(FingureCanvas):
                          papertype= 'letter')
         self.fig.set_size_inches(7,4.5)
         
-    def set_calibration(self,)
+    #def set_calibration(self,)
         
         
   

@@ -38,8 +38,12 @@ class Laser_scan(QObject):
             for x in range(int(self.nstep)):
                 if not self.STOP_BUTTON_PRESSED:
                     #swithch these two for random plot
-                    posit,dist,inty = scan.scan(self.nstep,self.distance,self.socket,self.serial)
-                    self.values.emit(posit,dist,inty)
+                    try:
+                        posit,dist,inty = scan.scan(self.nstep,self.distance,self.socket,self.serial)
+                        self.values.emit(posit,dist,inty)
+                    except:
+                        self.STOP_BUTTON_PRESSED = True
+                        print('Laser is not connected')
                     #self.values.connect(self.print_things)
                 else:
                     pass

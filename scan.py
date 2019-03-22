@@ -95,6 +95,8 @@ def laser_connect():
 def send_cmd(cmd,socket):
     socket.send(cmd.encode())
     output = socket.recv(4096)
+    foutput = int.from_bytes(output[1:], 'big')
+    #print(bin(foutput))
     print(output)
     return output
 
@@ -168,12 +170,12 @@ def laser_measurement(ser):
     except statistics.StatisticsError:
         pass
     
-    
-
-  
-
-    
-    
+def check_fault(s):
+    try:
+        pos = send_cmd('AXISFAULT\n',s)
+        return float(pos.decode('utf-8').strip('%').strip())
+    except:
+        return 0
     
     
 if __name__ == "__main__":
@@ -181,7 +183,7 @@ if __name__ == "__main__":
     
     
     s,ser = init_devices()
-    send_cmd('AXISSTATUS\n',s)
+    send_cmd('AXISFAULT\n',s)
     #ser.write(b'VR\r')
     #s.close()
     #print(laser_measurement(ser))
