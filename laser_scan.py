@@ -16,6 +16,7 @@ import time
 class Laser_scan(QObject):
     values = pyqtSignal(float,float,float)
     end = pyqtSignal()
+    position = pyqtSignal(float)
     
     
     def __init__(self,nstep,distance,socket,serial,connected=True):
@@ -41,7 +42,9 @@ class Laser_scan(QObject):
                     try:
                         posit,dist,inty = scan.scan(self.nstep,self.distance,self.socket,self.serial)
                         self.values.emit(posit,dist,inty)
-                    except:
+                        self.position.emit(scan.get_pos(self.s))
+                    except Exception as e:
+                        print(e)
                         self.STOP_BUTTON_PRESSED = True
                         print('Laser is not connected')
                     #self.values.connect(self.print_things)

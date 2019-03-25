@@ -77,6 +77,7 @@ class Canvas(FingureCanvas):
         #self.draw()
         self.qthread = None
         self.laserscan = None
+        self.legend = None
         self.calibrate = calibration.Calibration()
         
         #super(Canvas,self).__init__(self,self.fig)
@@ -136,7 +137,9 @@ class Canvas(FingureCanvas):
         Yp,line,Y = tilt.tilt_corr(self.pos,self.dists)
         self.ax[0].lines = []
         self.dists = Yp
-        self.ax[0].plot(self.pos[:len(self.dists)],Y,'g-o',markersize=3)
+        self.ax[0].plot(self.pos[:len(self.dists)],Y,'g-o',markersize=3,
+                       label='before correction')
+        #self.legend = self.ax[0].legend()
         self.animate2()
         
     def clear(self):
@@ -146,6 +149,7 @@ class Canvas(FingureCanvas):
         self.ax[0].lines = []
         self.ax[1].lines = []
         self.draw()
+        #self.legend.remove()
         #self.animate2()
         
     def save(self,filename,comments='None'):
@@ -172,7 +176,7 @@ class Canvas(FingureCanvas):
                          papertype= 'letter')
         self.fig.set_size_inches(7,4.5)
         
-    #def set_calibration(self,)
+     #def set_calibration(self,)
         
         
   

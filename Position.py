@@ -9,7 +9,7 @@ from PyQt5.QtCore import pyqtSignal, QObject, QThread
 import scan
 import time
 
-class Position(QThread):
+class Position(QObject):
     value = pyqtSignal(float)
     end = pyqtSignal()
     

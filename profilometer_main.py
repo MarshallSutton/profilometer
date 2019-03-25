@@ -100,6 +100,7 @@ class MainWindow_EXEC():
         
     def rehome(self):
         scan.send_cmd('HOME\n',self.s)
+        self.update_spinbox(scan.get_pos(self.s))
         
         
     def goto1(self):
@@ -166,16 +167,21 @@ class MainWindow_EXEC():
         
     def scan_button(self):
         self.canvas.clear()
-        self.ui.btn_SCAN.setEnabled(False)
+        self.ui.btn_SCAN.setDisabled(True)
         nsamples = self.ui.sb_Npoints.value()
         interval = self.ui.doubleSpinBox.value()
         distance = self.ui.sb_distance.value()
         nsamp,interva = self.pick2(nsamples,interval,distance)
         self.start = scan.get_pos(self.s)
-        self.end = self.start + distance*nsamples
+        self.end = self.start + nsamp*interva
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamp,interva,self.s,self.ser,connected=True)
-        self.ui.btn_SCAN.setEnabled(False)
+        #elf.ui.btn_SCAN.setEnabled(True)
+        self.canvas.laserscan.position.connect(self.update_spinbox)
+        self.canvas.laserscan.end.connect(self.enable_scan) 
+        
+    def enable_scan(self):
+        self.ui.btn_SCAN.setEnabled(True)
         
     def stop_scan(self):
         self.canvas.laser_stop()
@@ -219,12 +225,6 @@ class MainWindow_EXEC():
             else:
                 comment=comment[2:]
             return comment
-            
-    def print_page(self):
-        saved, _ = QtWidgets.QFileDialog.getSaveFileName()
-        self.canvas.print_fig(saved[:-4])
-        cmd = 'gnome-open %s' % saved
-        os.system(cmd)
         
     def qt_print(self):
         printer= QtPrintSupport.QPrinter()
@@ -233,13 +233,11 @@ class MainWindow_EXEC():
         screen = self.MainWindow.grab()
         painter.drawPixmap(10,10,screen)
         painter.end()
-        
-        
        
     def changeY(self):
         self.canvas.resizeY(self.ui.sb_lower_limit.value(),
                             self.ui.sb_upper_limit.value())
-        -10.000000
+        
     def changeY_intensity(self):
         self.canvas.resizeY_intensity(self.ui.sb_lower_limit_intensity.value(),
                             self.ui.sb_upper_limit_intensity.value())
