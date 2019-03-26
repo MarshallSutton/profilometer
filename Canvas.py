@@ -39,6 +39,7 @@ Created on Tue Nov 27 15:03:17 2018
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FingureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
 from PyQt5 import QtCore
 import numpy as np
 import time
@@ -50,19 +51,22 @@ class Canvas(FingureCanvas):
     
     
     def __init__(self, parent = None, width =7, height = 4.5, dpi = 100):
-        self.fig = Figure(figsize=(width, height))
+        self.fig = Figure(figsize=(width, height),constrained_layout = True)
         FingureCanvas.__init__(self, self.fig)
         self.setParent(parent) 
+        spec = gridspec.GridSpec(ncols=1,nrows=3, figure=self.fig)
         self.dists = []
         self.ints = []
         self.pos = np.arange(10)
         self.xstart = 0
         self.xend = 100
-        
+        gridspec.GridSpec(3,1)
         
         self.ax = []
-        self.ax.append(self.fig.add_subplot(2,1,1))
-        self.ax.append(self.fig.add_subplot(2,1,2))
+        #self.ax.append(self.fig.b   .add_subplot(2,1,1))
+        #self.ax.append(self.fig.add_subplot(2,1,2))
+        self.ax.append(self.fig.add_subplot(spec[:2,0]))
+        self.ax.append(self.fig.add_subplot(spec[2,0]))
         self.ax[0].set(ylim=(-10,10))
         self.ax[1].set(ylim=(50,260))
         self.ax[1].set_xlabel('Position (mm)')
@@ -188,4 +192,5 @@ class Canvas(FingureCanvas):
     
 if __name__ == '__main__':
     canvas = Canvas()
+    canvas.fig.show()
     

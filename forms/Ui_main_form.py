@@ -155,7 +155,7 @@ class Ui_MainWindow(object):
         self.up_btn.setArrowType(QtCore.Qt.UpArrow)
         self.up_btn.setObjectName("up_btn")
         self.widget = QtWidgets.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(80, 30, 681, 471))
+        self.widget.setGeometry(QtCore.QRect(80, 30, 711, 471))
         self.widget.setAutoFillBackground(True)
         self.widget.setObjectName("widget")
         self.sb_left = QtWidgets.QSpinBox(self.centralwidget)
