@@ -169,9 +169,12 @@ class MainWindow_EXEC():
         self.canvas.clear()
         self.ui.btn_SCAN.setDisabled(True)
         nsamples = self.ui.sb_Npoints.value()
-        interval = self.ui.doubleSpinBox.value()
+        interval = self.ui.sb_interval.value()
         distance = self.ui.sb_distance.value()
-        nsamp,interva = self.pick2(nsamples,interval,distance)
+        nsamp,interva,dist = self.pick2(nsamples,interval,distance)
+        self.ui.sb_distance.setValue(dist)
+        self.ui.sb_Npoints.setValue(nsamp)
+        self.ui.sb_interval.setValue(interva)
         self.start = scan.get_pos(self.s)
         self.end = self.start + nsamp*interva
         self.canvas.resizeX(self.start,self.end)
@@ -270,13 +273,14 @@ class MainWindow_EXEC():
         #print(scan.get_pos(self.s))
     def pick2(self,num_points,interval,distance):
         if num_points != 0 and interval != 0:
-            return num_points, interval
+            dist = num_points*interval
+            return num_points, interval, dist
         if num_points != 0 and distance !=0 and interval == 0:
-            return num_points, distance/num_points
+            return num_points, distance/num_points, distance
         if num_points == 0 and distance !=0 and interval != 0:
-            return int(distance/interval), interval
+            return int(distance/interval), interval. distance
         else:
-            return 20,1.0
+            return 20,1.0,10
 
 if __name__ == "__main__":
     MainWindow_EXEC()
