@@ -62,7 +62,7 @@ class MainWindow_EXEC():
         self.yend = 5
         self.timer = None
         
-        #self.s,self.ser = scan.init_devices(rehome=False)
+        self.s,self.ser = scan.init_devices(rehome=False)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )
@@ -185,6 +185,7 @@ class MainWindow_EXEC():
         
     def enable_scan(self):
         self.ui.btn_SCAN.setEnabled(True)
+        self.auto_save()
         
     def stop_scan(self):
         self.canvas.laser_stop()
@@ -211,7 +212,7 @@ class MainWindow_EXEC():
         comments = self.ui.comments.toPlainText()
         self.canvas.save(saved,comments=comments)
         self.canvas.add_title(title)
-        self.canvas.print_fig(saved)
+        #self.canvas.print_fig(saved)
         
     def load(self):
         try:
@@ -291,7 +292,6 @@ class MainWindow_EXEC():
         path = os.path.join('../autosave/',file_name)
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
-        
         
 
 if __name__ == "__main__":

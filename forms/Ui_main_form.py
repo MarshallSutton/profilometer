@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.2
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -235,12 +235,12 @@ class Ui_MainWindow(object):
         self.btn_Clear_2 = QtWidgets.QPushButton(self.centralwidget)
         self.btn_Clear_2.setGeometry(QtCore.QRect(650, 670, 111, 23))
         self.btn_Clear_2.setObjectName("btn_Clear_2")
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(550, 650, 231, 21))
-        self.lineEdit.setObjectName("lineEdit")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(550, 630, 181, 16))
-        self.label_4.setObjectName("label_4")
+        self.autosave_path = QtWidgets.QLineEdit(self.centralwidget)
+        self.autosave_path.setGeometry(QtCore.QRect(550, 650, 231, 21))
+        self.autosave_path.setObjectName("autosave_path")
+        self.label_41 = QtWidgets.QLabel(self.centralwidget)
+        self.label_41.setGeometry(QtCore.QRect(550, 630, 181, 16))
+        self.label_41.setObjectName("label_41")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 824, 20))
@@ -311,7 +311,7 @@ class Ui_MainWindow(object):
         self.lbl_limit_2.setText(_translate("MainWindow", "Set Limits"))
         self.comment_label.setText(_translate("MainWindow", "Comments"))
         self.btn_Clear_2.setText(_translate("MainWindow", "Clear Comments"))
-        self.label_4.setText(_translate("MainWindow", "Autosave path"))
+        self.label_41.setText(_translate("MainWindow", "Autosave path"))
         self.menuProfilometer.setTitle(_translate("MainWindow", "Profilometer"))
         self.menu_File.setTitle(_translate("MainWindow", "&File"))
         self.menuTIlt_Correction.setTitle(_translate("MainWindow", "TIlt Correction"))
