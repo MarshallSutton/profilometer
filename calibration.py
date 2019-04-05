@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
  #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # /home/profilometer/profilometer_main.py
 #
-# This class contains methods and objects for creating a calibration file
- #and applying that file to measurements made with the profilometer.
+# This script kicks of the profilometer main GUI.
 #
 # Author: Marshall Sutton
 # NASA Goddard Space Flight Center
@@ -36,33 +34,3 @@
 # PROVIDED HEREUNDER.
 #
 # Last update: 2/4/2019
- 
-import sys
-import os
-import numpy as np
-import math
-class Calibration():
-    
-    def __init__(self):
-        self.calibration_file_path = 'calibration/current_file'
-        self.pos = []
-        self.dists = []
-        self.ints = []
-        
-        
-        pass
-    
-    def load_calibration(self):
-        with open(self.calibration_file_path,'r') as calibration:
-            calibration_file = calibration.readlines()
-            pos,dists,ints= np.loadtxt(calibration_file,unpack=True)
-            return self.pos,self.dists,self.ints
-        
-    def set_calibration_file(self,calibration_file):
-        with open(self.calibration_file_path,'w') as calibration:
-            calibration.write(calibration_file)
-            
-    def apply_calibration(self,meas,pos):
-        matches = abs(pos-self.pos)
-        
-

@@ -41,7 +41,7 @@ from forms.Ui_main_form import Ui_MainWindow
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtPrintSupport
 from PyQt5.QtCore import pyqtSignal, QObject, QThread, pyqtSlot, QTimer
-import sys, time
+import sys, time, datetime
 import os
 from Canvas import Canvas
 
@@ -62,7 +62,7 @@ class MainWindow_EXEC():
         self.yend = 5
         self.timer = None
         
-        self.s,self.ser = scan.init_devices(rehome=False)
+        #self.s,self.ser = scan.init_devices(rehome=False)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )
@@ -90,7 +90,7 @@ class MainWindow_EXEC():
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         #self.position_timer()
         #self.update_current_position()# 
-        self.update_spinbox(scan.get_pos(self.s))
+        #self.update_spinbox(scan.get_pos(self.s))
         self.ui.limit_lable.setHidden(True)
         
         
@@ -203,8 +203,9 @@ class MainWindow_EXEC():
     def clear(self):
         self.canvas.clear()
         
-    def save(self):
-        saved, _ = QtWidgets.QFileDialog.getSaveFileName()
+    def save(self,saved = None):
+        if not saved:
+            saved, _ = QtWidgets.QFileDialog.getSaveFileName()
         #print(saved)
         title = os.path.basename(saved)
         comments = self.ui.comments.toPlainText()
@@ -262,14 +263,16 @@ class MainWindow_EXEC():
         self.app.processEvents()
         
     def update_spinbox(self,position):
-        self.ui.curr_position.setValue(position)
-        fault = scan.check_fault(self.s)
-        if fault == 32 or fault == 16:
-            self.ui.limit_lable.setVisible(True)
-        else:
-            self.ui.limit_lable.setVisible(False)
-            print('not at end')
-            
+        try:
+            self.ui.curr_position.setValue(position)
+            fault = scan.check_fault(self.s)
+            if fault == 32 or fault == 16:
+                self.ui.limit_lable.setVisible(True)
+            else:
+                self.ui.limit_lable.setVisible(False)
+                print('not at end')
+        except:
+            pass
         #print(scan.get_pos(self.s))
     def pick2(self,num_points,interval,distance):
         if num_points != 0 and interval != 0:
@@ -281,6 +284,15 @@ class MainWindow_EXEC():
             return int(distance/interval), interval. distance
         else:
             return 20,1.0,10
+        
+    def auto_save(self):
+        today = datetime.date.today()
+        file_name = 'scan-%s-%s-%s.txt' % (str(today.year),str(today.month),str(today.day))
+        path = os.path.join('../autosave/',file_name)
+        self.ui.autosave_path.setText(path)
+        self.save(saved=path)
+        
+        
 
 if __name__ == "__main__":
     MainWindow_EXEC()
