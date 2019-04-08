@@ -287,9 +287,13 @@ class MainWindow_EXEC():
             return 20,1.0,10
         
     def auto_save(self):
-        today = datetime.date.today()
-        file_name = 'scan-%s-%s-%s.txt' % (str(today.year),str(today.month),str(today.day))
-        path = os.path.join('../autosave/',file_name)
+        today = datetime.datetime.now()
+        file_name = 'scan-%s-%s-%s-%s:%s.txt' % (str(today.year),
+                                                 str(today.month),
+                                                 str(today.day),
+                                                 str(today.hour),
+                                                 str(today.minute))
+        path = os.path.join('/home/scannerone/autosave/',file_name)
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
         
