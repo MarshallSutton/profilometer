@@ -90,7 +90,7 @@ class MainWindow_EXEC():
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         #self.position_timer()
         #self.update_current_position()# 
-        #self.update_spinbox(scan.get_pos(self.s))
+        self.update_spinbox(scan.get_pos(self.s))
         self.ui.limit_lable.setHidden(True)
         
         

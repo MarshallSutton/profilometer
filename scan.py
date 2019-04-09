@@ -163,8 +163,10 @@ def laser_measurement(ser):
         intensity.append(sign(meat[3]))
         position.append(sign(meat[2]))
     try:
-        value = statistics.mean(values) 
-        intent = statistics.mean(intensity)
+        value = values[position.index(0.)]
+        intent = intensity[position.index(0.)]
+        #value = statistics.mean(values) 
+        #intent = statistics.mean(intensity)
         #print(position)
         return value, intent
     except statistics.StatisticsError:

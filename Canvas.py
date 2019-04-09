@@ -157,10 +157,11 @@ class Canvas(FingureCanvas):
         #self.animate2()
         
     def save(self,filename,comments='None'):
-        head = comments+'\n'+'\tDistance (microns)  Light Intensity (0-255)\tPosition (mm)'
+        head = comments+'\n'+'\tPosition (mm)     Distance (microns)    Light Intensity (0-255)'
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
+        print(head)
         np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head)
         
         
