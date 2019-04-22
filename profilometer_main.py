@@ -38,6 +38,7 @@
 import scan
 #from animat import plot
 from forms.Ui_main_form import Ui_MainWindow
+from forms.Ui_calibration import Ui_CalibrationWindow
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtPrintSupport
 from PyQt5.QtCore import pyqtSignal, QObject, QThread, pyqtSlot, QTimer
@@ -62,7 +63,7 @@ class MainWindow_EXEC():
         self.yend = 5
         self.timer = None
         
-        self.s,self.ser = scan.init_devices(rehome=False)
+        #self.s,self.ser = scan.init_devices(rehome=False)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )
@@ -87,10 +88,11 @@ class MainWindow_EXEC():
         self.ui.actionLoad.triggered.connect(self.load)
         self.ui.action_Print.triggered.connect(self.qt_print)
         self.ui.action_Close.triggered.connect(self.close)
+        #self.ui.actionCalibrate.triggered.connect(self.calibrate)
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         #self.position_timer()
         #self.update_current_position()# 
-        self.update_spinbox(scan.get_pos(self.s))
+        #self.update_spinbox(scan.get_pos(self.s))
         self.ui.limit_lable.setHidden(True)
         
         
@@ -297,6 +299,9 @@ class MainWindow_EXEC():
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
         
+    def calibrate(self):
+        self.calibration = Calibration
+        self.calibration.show()
 
 if __name__ == "__main__":
     MainWindow_EXEC()
