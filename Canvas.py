@@ -161,7 +161,6 @@ class Canvas(FingureCanvas):
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
-        print(head)
         np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head)
         
         

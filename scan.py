@@ -104,7 +104,8 @@ def get_pos(s):
     try:
         pos = send_cmd('PCMD\n',s)
         return float(pos.decode('utf-8').strip('%').strip())
-    except:
+    except:dev' for glob 'libxkbcommon*'
+Note, selecting 'libxkbcommon-x11-0
         return 0
     
 
