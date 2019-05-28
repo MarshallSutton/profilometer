@@ -19,30 +19,26 @@ class Laser_scan(QObject):
     position = pyqtSignal(float)
     
     
-    def __init__(self,nstep,distance,socket,serial,connected=True):
+    def __init__(self,nstep,distance,connected=True):
         QtCore.QThread.__init__(self)
-        #self.s,self.ser = scan.init_devices()
         self.connected = connected
         self.nstep = nstep
         self.distance = distance
         self.start = 0
         self.STOP_BUTTON_PRESSED = False
-        self.socket = socket
-        self.serial = serial
+       
         
         
     def run_laser(self):
         
         if self.connected:
-            self.s,self.ser = scan.init_devices(rehome=False)
-            #self.ser.write(b'SD,SC,3\r')
             for x in range(int(self.nstep)):
                 if not self.STOP_BUTTON_PRESSED:
                     #swithch these two for random plot
                     try:
-                        posit,dist,inty = scan.scan(self.nstep,self.distance,self.socket,self.serial)
+                        posit,dist,inty = scan.scan(self.nstep,self.distance)
                         self.values.emit(posit,dist,inty)
-                        self.position.emit(scan.get_pos(self.s))
+                        self.position.emit(scan.get_pos())
                     except Exception as e:
                         print(e)
                         self.STOP_BUTTON_PRESSED = True
@@ -65,7 +61,7 @@ class Laser_scan(QObject):
     def print_things(posi,dis,iny):  
         print (posi,dis,iny, 'from laser_scan')        
             
-    def run(s0elf):
+    def run(self):
         # your logic here
         self.run_laser()
         

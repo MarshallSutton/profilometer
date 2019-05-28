@@ -62,8 +62,6 @@ class MainWindow_EXEC():
         self.ystart = -5
         self.yend = 5
         self.timer = None
-        
-        #self.s,self.ser = scan.init_devices(rehome=False)
 
         self.canvas = Canvas(parent = self.ui.widget)
         self.ui.widget.show(  )
@@ -90,9 +88,6 @@ class MainWindow_EXEC():
         self.ui.action_Close.triggered.connect(self.close)
         #self.ui.actionCalibrate.triggered.connect(self.calibrate)
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
-        #self.position_timer()
-        #self.update_current_position()# 
-        #self.update_spinbox(scan.get_pos(self.s))
         self.ui.limit_lable.setHidden(True)
         
         
@@ -101,15 +96,15 @@ class MainWindow_EXEC():
         sys.exit(self.app.exec_())
         
     def rehome(self):
-        scan.send_cmd('HOME\n',self.s)
-        self.update_spinbox(scan.get_pos(self.s))
+        scan.send_cmd('HOME\n')
+        self.update_spinbox(scan.get_pos())
         
         
     def goto1(self):
         loc = self.ui.sb_goto1.value()
         pos = self.moving(loc)
         self.update_spinbox(pos)
-            #scan.move_position(loc,self.speed,self.s)
+            #scan.move_position(loc,self.speed)
     
     def goto2(self):
         loc = self.ui.sb_goto2.value()
@@ -123,17 +118,17 @@ class MainWindow_EXEC():
             
     def move_up(self):
         loc = self.ui.sb_goto3_2.value()
-        scan.moveinc(-loc,self.speed,self.s)
-        self.update_spinbox(scan.get_pos(self.s))
+        scan.moveinc(-loc,self.speed)
+        self.update_spinbox(scan.get_pos())
             
     def move_down(self):
         loc = self.ui.sb_goto3_2.value()
-        scan.moveinc(loc,self.speed,self.s)
-        self.update_spinbox(scan.get_pos(self.s))
+        scan.moveinc(loc,self.speed)
+        self.update_spinbox(scan.get_pos())
             
     def moving(self,loc):
         #pool = mp.Pool(processes=1)
-        result = scan.move_position(loc,self.speed,self.s)         
+        result = scan.move_position(loc,self.speed)         
         return result
         
             
@@ -177,10 +172,10 @@ class MainWindow_EXEC():
         self.ui.sb_distance.setValue(dist)
         self.ui.sb_Npoints.setValue(nsamp)
         self.ui.sb_interval.setValue(interva)
-        self.start = scan.get_pos(self.s)
+        self.start = scan.get_pos()
         self.end = self.start + nsamp*interva
         self.canvas.resizeX(self.start,self.end)
-        self.canvas.laser(nsamp,interva,self.s,self.ser,connected=True)
+        self.canvas.laser(nsamp,interva,connected=True)
         #elf.ui.btn_SCAN.setEnabled(True)
         self.canvas.laserscan.position.connect(self.update_spinbox)
         self.canvas.laserscan.end.connect(self.enable_scan) 
@@ -200,7 +195,7 @@ class MainWindow_EXEC():
         self.ui.sb_lower_limit.setValue(self.canvas.ax[1].get_ylim()[0])
         self.ui.sb_upper_limit.setValue(self.canvas.ax[1].get_ylim()[1])
         self.ui.sb_left.setValue(self.canvas.ax[0].get_xlim()[0])
-        self.ui.sb_right.setVprint(scan.get_pos(self.s))
+        self.ui.sb_right.setVprint(scan.get_pos())
         #alue(self.canvas.ax[0].get_xlim()[1])-10.000000
         
     def clear(self):
@@ -256,7 +251,7 @@ class MainWindow_EXEC():
         
     def update_current_position(self):
         # Not used. May be used later to implement threads
-        self.laser_pos = Position(self.s)
+        self.laser_pos = Position()
         self.qthread2 = QThread()
         self.laser_pos.moveToThread(self.qthread2)
         self.qthread2.started.connect(self.laser_pos.get_position)
@@ -268,7 +263,7 @@ class MainWindow_EXEC():
     def update_spinbox(self,position):
         try:
             self.ui.curr_position.setValue(position)
-            fault = scan.check_fault(self.s)
+            fault = scan.check_fault()
             if fault == 32 or fault == 16:
                 self.ui.limit_lable.setVisible(True)
             else:
@@ -276,7 +271,7 @@ class MainWindow_EXEC():
                 print('not at end')
         except:
             pass
-        #print(scan.get_pos(self.s))
+    
     def pick2(self,num_points,interval,distance):
         if num_points != 0 and interval != 0:
             dist = num_points*interval
