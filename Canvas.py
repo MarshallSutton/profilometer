@@ -45,7 +45,7 @@ import numpy as np
 import time
 from laser_scan import Laser_scan
 import tilt_correction as tilt
-#import calibration
+From calibration import Calibration
 
 class Canvas(FingureCanvas):
     
@@ -82,7 +82,7 @@ class Canvas(FingureCanvas):
         self.qthread = None
         self.laserscan = None
         self.legend = None
-        #self.calibrate = calibration.Calibration()
+        self.calibrate = Calibration()
         
         #super(Canvas,self).__init__(self,self.fig)
                 
@@ -91,6 +91,7 @@ class Canvas(FingureCanvas):
           
        
     def update_graph(self,posit,dist,inty):
+        calibrated_dist = calibrate.inpterpolation(dist)
         self.dists.append(dist)
         self.pos.append(posit)
         self.ints.append(inty)

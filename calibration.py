@@ -3,7 +3,7 @@
 
 # /home/profilometer/profilometer_main.py
 #
-# This script kicks of the profilometer main GUI.
+#  class that adds calibration functionality
 #
 # Author: Marshall Sutton
 # NASA Goddard Space Flight Center
@@ -34,3 +34,33 @@
 # PROVIDED HEREUNDER.
 #
 # Last update: 2/4/2019
+
+import numpy as np 
+import os
+
+calibration_file_path = '/home/msutton1/profilometer/calibration_file.txt'
+
+class Calibration():
+
+    def __init__(self):
+        self.load_calibration_file(self.get_calibration_filename())
+        self.norm_distance = normalize(self.dists)
+
+    def get_calibration_filename(self):
+        filename = None
+        with open(calibration_file_path,'r') as cal:
+            filename = cal.read()
+        return filename
+
+    def load_calibration_file(self,filename):
+        self.pos, self.dists,self.ints= np.loadtxt(filename,unpack=True)
+
+    def change_calibration_file(self,filename):
+        with open(calibration_file_path,'w') as cal:
+            cal.write(filename)
+
+    def normalize(distance_array)
+        return distance_array-np.mean(distance_array)
+
+    def interpolation(self,input)
+        return np.interp(input,self.pos,self.norm_distance)

@@ -46,7 +46,7 @@ import sys, time, datetime
 import os
 from Canvas import Canvas
 
-from Position import Position
+from calibration import Calibration
 
     
 class MainWindow_EXEC():
@@ -64,6 +64,7 @@ class MainWindow_EXEC():
         self.timer = None
 
         self.canvas = Canvas(parent = self.ui.widget)
+        self.calibrate = Calibration()
         self.ui.widget.show(  )
         
         self.ui.btn_SCAN.clicked.connect(self.scan_button)
@@ -86,6 +87,7 @@ class MainWindow_EXEC():
         self.ui.actionLoad.triggered.connect(self.load)
         self.ui.action_Print.triggered.connect(self.qt_print)
         self.ui.action_Close.triggered.connect(self.close)
+        self.ui.actionCalibrate.triggered.connect(self.update_calibration_file)
         #self.ui.actionCalibrate.triggered.connect(self.calibrate)
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         self.ui.limit_lable.setHidden(True)
@@ -295,9 +297,9 @@ class MainWindow_EXEC():
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
         
-    def calibrate(self):
-        self.calibration = Calibration
-        self.calibration.show()
+    def update_calibration_file(self):
+        calibration_path, _ = QtWidgets.QFileDialog.getSaveFileName()
+        self.calibrate.load_calibration_file(calibration_path)
 
 if __name__ == "__main__":
     MainWindow_EXEC()

@@ -585,10 +585,10 @@
       </rect>
      </property>
      <property name="minimum">
-      <number>-100</number>
+      <number>-300</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>300</number>
      </property>
      <property name="value">
       <number>-10</number>
@@ -604,10 +604,10 @@
       </rect>
      </property>
      <property name="minimum">
-      <number>-100</number>
+      <number>-300</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>300</number>
      </property>
      <property name="value">
       <number>10</number>
@@ -856,7 +856,7 @@
   </action>
   <action name="actionCalibrate">
    <property name="text">
-    <string>Calibrate</string>
+    <string>Select Calibration File</string>
    </property>
   </action>
  </widget>
