@@ -294,7 +294,7 @@ class MainWindow_EXEC():
                                                  str(today.hour),
                                                  str(today.minute),
                                                  str(today.second))
-        path = os.path.join('/home/scannerone/autosave/',file_name)
+        path = os.path.join('/home/scannerone/autosave/',file_ name)
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
         
