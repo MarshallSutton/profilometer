@@ -90,8 +90,8 @@ class Canvas(FingureCanvas):
           
        
     def update_graph(self,posit,dist,inty):
-        calibrated_dist = self.calibrate.interpolation(dist)
-        self.dists.append(dist)
+        calibrated_dist = dist+self.calibrate.interpolation(dist)
+        self.dists.append(calibrated_dist)
         self.pos.append(posit)
         self.ints.append(inty)
         self.resizeY(self.dists[0]-10,self.dists[0]+10)
