@@ -43,7 +43,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
+       <y>110</y>
        <width>80</width>
        <height>23</height>
       </rect>
@@ -104,7 +104,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>90</y>
+       <y>110</y>
        <width>80</width>
        <height>23</height>
       </rect>
@@ -132,6 +132,128 @@
       <double>1.000000000000000</double>
      </property>
     </widget>
+    <widget class="QLabel" name="limit_lable">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>160</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="ButtonText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <underline>true</underline>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: red</string>
+     </property>
+     <property name="text">
+      <string>End of Limit</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+    </widget>
     <widget class="QDoubleSpinBox" name="sb_distance">
      <property name="geometry">
       <rect>
@@ -156,33 +278,6 @@
      </property>
      <property name="text">
       <string>Total Distance(mm)</string>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>120</y>
-       <width>241</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>8</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Populate 2 of samples, interval, and distance. The other parameter must be zero. If all three are non-zero, scan will use samples and interval.</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -409,128 +504,6 @@
       <enum>Qt::UpArrow</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="limit_lable">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>130</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="palette">
-      <palette>
-       <active>
-        <colorrole role="WindowText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="ButtonText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </active>
-       <inactive>
-        <colorrole role="WindowText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="ButtonText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </inactive>
-       <disabled>
-        <colorrole role="WindowText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="Text">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-        <colorrole role="ButtonText">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>255</red>
-           <green>0</green>
-           <blue>0</blue>
-          </color>
-         </brush>
-        </colorrole>
-       </disabled>
-      </palette>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-       <underline>true</underline>
-      </font>
-     </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: red</string>
-     </property>
-     <property name="text">
-      <string>End of Limit</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::PlainText</enum>
-     </property>
-    </widget>
    </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
@@ -612,10 +585,10 @@
       </rect>
      </property>
      <property name="minimum">
-      <number>-100</number>
+      <number>-300</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>300</number>
      </property>
      <property name="value">
       <number>-10</number>
@@ -631,10 +604,10 @@
       </rect>
      </property>
      <property name="minimum">
-      <number>-100</number>
+      <number>-300</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>300</number>
      </property>
      <property name="value">
       <number>10</number>
@@ -833,10 +806,17 @@
     </property>
     <addaction name="actionInitialize_Axis"/>
    </widget>
+   <widget class="QMenu" name="menuCalibration">
+    <property name="title">
+     <string>Calibration</string>
+    </property>
+    <addaction name="actionCalibrate"/>
+   </widget>
    <addaction name="menuProfilometer"/>
    <addaction name="menu_File"/>
    <addaction name="menuTIlt_Correction"/>
    <addaction name="menuRe_home"/>
+   <addaction name="menuCalibration"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_File">
@@ -872,6 +852,11 @@
   <action name="actionInitialize_Axis">
    <property name="text">
     <string>Initialize Axis</string>
+   </property>
+  </action>
+  <action name="actionCalibrate">
+   <property name="text">
+    <string>Select Calibration File</string>
    </property>
   </action>
  </widget>

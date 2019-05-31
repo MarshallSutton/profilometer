@@ -92,41 +92,44 @@ def laser_connect():
     ser.timeout = 1
     return ser
     
-def send_cmd(cmd,socket):
+def send_cmd(cmd):
+    socket = connect()
     socket.send(cmd.encode())
     output = socket.recv(4096)
     foutput = int.from_bytes(output[1:], 'big')
     #print(bin(foutput))
     print(output)
+    socket.close()
     return output
 
-def get_pos(s):
+def get_pos():
     try:
-        pos = send_cmd('PCMD\n',s)
+        pos = send_cmd('PCMD\n')
         return float(pos.decode('utf-8').strip('%').strip())
     except:
         return 0
     
 
-def move_position(position,velocity,socket):
+def move_position(position,velocity):
     """Moves controller to position (in cm)
     """
     cmd = 'MOVEABS D %s F %s\n' %(position,velocity)
-    send_cmd(cmd,socket)
-    return get_pos(socket)
-def enable(socket):
-    send_cmd('ENABLE\n',socket)
+    send_cmd(cmd)
+    return get_pos()
+
+def enable():
+    send_cmd('ENABLE\n')
    
 
-def moveinc(distance,velocity,socket):
+def moveinc(distance,velocity):
     """
     Move the stage incrementally, distance in milimeters
     """
     cmd = 'MOVEINC D %s F %s\n' %(distance,velocity)
     #print(cmd)
-    send_cmd(cmd,socket)
+    send_cmd(cmd)
     
-    return get_pos(socket)
+    return get_pos()
 
 def sign(string):
     try:
@@ -142,7 +145,8 @@ def sign(string):
     return flot
         
 
-def laser_measurement(ser):
+def laser_measurement():
+    ser = laser_connect()
     
     #ser.write(b'SD,SC,1\r')
     #  ser.write(b'SD,SC,3\r')
@@ -171,21 +175,19 @@ def laser_measurement(ser):
         return value, intent
     except statistics.StatisticsError:
         pass
-    
-def check_fault(s):
+    ser.close()
+
+def check_fault():
     try:
-        pos = send_cmd('AXISFAULT\n',s)
+        pos = send_cmd('AXISFAULT\n')
         return float(pos.decode('utf-8').strip('%').strip())
     except:
         return 0
     
     
 if __name__ == "__main__":
-    
-    
-    
-    s,ser = init_devices()
-    send_cmd('AXISFAULT\n',s)
+
+    send_cmd('AXISFAULT\n')
     #ser.write(b'VR\r')
     #s.close()
     #print(laser_measurement(ser))
