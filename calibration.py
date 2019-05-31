@@ -38,29 +38,34 @@
 import numpy as np 
 import os
 
-calibration_file_path = '/home/msutton1/profilometer/calibration_file.txt'
+
 
 class Calibration():
 
+    
+
     def __init__(self):
+        self.calibration_file_path = 'calibration_file.txt'
         self.load_calibration_file(self.get_calibration_filename())
-        self.norm_distance = normalize(self.dists)
+        self.norm_distance = self.normalize(self.dists)  
 
     def get_calibration_filename(self):
         filename = None
-        with open(calibration_file_path,'r') as cal:
+        with open(self.calibration_file_path, 'r') as cal:
             filename = cal.read()
         return filename
 
     def load_calibration_file(self,filename):
-        self.pos, self.dists,self.ints= np.loadtxt(filename,unpack=True)
+        self.pos, self.dists, self.ints = np.loadtxt(filename, unpack=True)
 
     def change_calibration_file(self,filename):
-        with open(calibration_file_path,'w') as cal:
+        with open(self.calibration_file_path,'w') as cal:
             cal.write(filename)
 
-    def normalize(distance_array)
+    def normalize(self,distance_array):
         return distance_array-np.mean(distance_array)
 
-    def interpolation(self,input)
+    def interpolation(self,input):
         return np.interp(input,self.pos,self.norm_distance)
+
+cal = Calibration()

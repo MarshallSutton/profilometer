@@ -59,21 +59,21 @@ def init_devices(rehome=False):
         move_position(100,10,s)
     return s, ser
 
-def scan(nsample,distance,s,ser):
+def scan(nsample,distance):
     """ scans mirror segment nsample times, each sample is 
     distance microns apart. Connects to Laser and motion controller
     """
     positions = []
     distances = []
     intensity = []
-    dist, ints = laser_measurement(ser)
-    pos = get_pos(s)
+    dist, ints = laser_measurement()
+    pos = get_pos()
     distances.append(dist)
     intensity.append(ints)
     positions.append(pos)
     
     move = distance
-    err = moveinc(move,10,s)
+    err = moveinc(move,10,)
     if err !='%':
         print('laser did not move')
     return pos,dist,ints

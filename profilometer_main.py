@@ -293,13 +293,13 @@ class MainWindow_EXEC():
                                                  str(today.hour),
                                                  str(today.minute),
                                                  str(today.second))
-        path = os.path.join('/home/scannerone/autosave/',file_ name)
+        path = os.path.join('/home/scannerone/autosave/',file_name)
         self.ui.autosave_path.setText(path)
         self.save(saved=path)
         
     def update_calibration_file(self):
-        calibration_path, _ = QtWidgets.QFileDialog.getSaveFileName()
-        self.calibrate.load_calibration_file(calibration_path)
+        calibration_path, _ = QtWidgets.QFileDialog.getOpenFileName()
+        self.calibrate.change_calibration_file(calibration_path)
 
 if __name__ == "__main__":
     MainWindow_EXEC()
