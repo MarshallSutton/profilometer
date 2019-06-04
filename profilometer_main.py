@@ -88,7 +88,7 @@ class MainWindow_EXEC():
         self.ui.action_Print.triggered.connect(self.qt_print)
         self.ui.action_Close.triggered.connect(self.close)
         self.ui.actionCalibrate.triggered.connect(self.update_calibration_file)
-        #self.ui.actionCalibrate.triggered.connect(self.calibrate)
+        self.ui.actionApply_Calibration.triggered.connect(self.apply_calibration)
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         self.ui.limit_lable.setHidden(True)
         
@@ -178,7 +178,6 @@ class MainWindow_EXEC():
         self.end = self.start + nsamp*interva
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamp,interva,connected=True)
-        #elf.ui.btn_SCAN.setEnabled(True)
         self.canvas.laserscan.position.connect(self.update_spinbox)
         self.canvas.laserscan.end.connect(self.enable_scan) 
         
@@ -300,6 +299,9 @@ class MainWindow_EXEC():
     def update_calibration_file(self):
         calibration_path, _ = QtWidgets.QFileDialog.getOpenFileName()
         self.calibrate.change_calibration_file(calibration_path)
+    
+    def apply_calibration(self):
+        self.canvas.calibrate_data()
 
 if __name__ == "__main__":
     MainWindow_EXEC()

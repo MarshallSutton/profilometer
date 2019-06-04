@@ -37,6 +37,8 @@
 
 import numpy as np 
 import os
+import matplotlib.pyplot as plt
+
 
 
 
@@ -68,4 +70,8 @@ class Calibration():
     def interpolation(self,input):
         return np.interp(input,self.pos,self.norm_distance)
 
-cal = Calibration()
+    def plot_data(self):
+        plt.plot(self.pos,self.dists,'-r')
+        plt.plot(self.pos,self.normalize(self.dists),'-p')
+        plt.show()
+

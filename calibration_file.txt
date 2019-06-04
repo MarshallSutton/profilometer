@@ -1,1 +1,1 @@
-/home/scannerone/dev/profilometer/zero_data.txt
+/home/scannerone/dev/profilometer/data.txt

@@ -90,8 +90,7 @@ class Canvas(FingureCanvas):
           
        
     def update_graph(self,posit,dist,inty):
-        calibrated_dist = dist+self.calibrate.interpolation(dist)
-        self.dists.append(calibrated_dist)
+        self.dists.append(dist)
         self.pos.append(posit)
         self.ints.append(inty)
         self.resizeY(self.dists[0]-10,self.dists[0]+10)
@@ -145,7 +144,14 @@ class Canvas(FingureCanvas):
                        label='before correction')
         #self.legend = self.ax[0].legend()
         self.animate2()
-        
+
+    def calibrate_data(self):
+        old_dists = self.dists
+        self.dists = self.dists+self.calibrate.interpolation(self.pos)
+        self.ax[0].lines = []
+        self.ax[0].plot(self.pos[:len(old_dists)],old_dists,'m-o',markersize=3,
+                       label='before calibration')  
+        self.animate2()     
     def clear(self):
         self.dists = []
         self.ints = []
