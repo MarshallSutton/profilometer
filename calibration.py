@@ -47,7 +47,7 @@ class Calibration():
     
 
     def __init__(self):
-        self.calibration_file_path = 'calibration_file.txt'
+        self.calibration_file_path = 'calibration_file'
         self.load_calibration_file(self.get_calibration_filename())
         self.norm_distance = self.normalize(self.dists)  
 
@@ -58,11 +58,16 @@ class Calibration():
         return filename
 
     def load_calibration_file(self,filename):
-        self.pos, self.dists, self.ints = np.loadtxt(filename, unpack=True)
+        try:
+            self.pos, self.dists, self.ints = np.loadtxt(filename, unpack=True)
+        except Exception as e:
+            self.pos, self.dists, self.ints = ([],[],[])
+            print(e)
 
     def change_calibration_file(self,filename):
         with open(self.calibration_file_path,'w') as cal:
             cal.write(filename)
+        self.load_calibration_file(self.get_calibration_filename())
 
     def normalize(self,distance_array):
         return distance_array-np.mean(distance_array)
@@ -74,4 +79,5 @@ class Calibration():
         plt.plot(self.pos,self.dists,'-r')
         plt.plot(self.pos,self.normalize(self.dists),'-p')
         plt.show()
+
 

@@ -62,8 +62,6 @@ class Canvas(FingureCanvas):
         gridspec.GridSpec(3,1)
         
         self.ax = []
-        #self.ax.append(self.fig.b   .add_subplot(2,1,1))
-        #self.ax.append(self.fig.add_subplot(2,1,2))
         self.ax.append(self.fig.add_subplot(spec[:2,0]))
         self.ax.append(self.fig.add_subplot(spec[2,0]))
         self.ax[0].set(ylim=(-10,10))
@@ -73,27 +71,22 @@ class Canvas(FingureCanvas):
         self.ax[1].set_ylabel('Light Intensity (0-255)')
         self.ax[1].grid(True)
         self.ax[0].grid(True)
-        #self.start = scan.get_pos(self.s)
         self.start = 0
         self.ax[0].set(xlim=(self.start,self.start+100))
         self.ax[1].set(xlim=(self.start,self.start+100))
-        #self.draw()
         self.qthread = None
         self.laserscan = None
         self.legend = None
         self.calibrate = Calibration()
         
-        #super(Canvas,self).__init__(self,self.fig)
-                
-        
-        #timer
           
        
     def update_graph(self,posit,dist,inty):
         self.dists.append(dist)
         self.pos.append(posit)
         self.ints.append(inty)
-        self.resizeY(self.dists[0]-10,self.dists[0]+10)
+        if len(self.pos)<= 1:
+            self.resizeY(self.dists[0]-30,self.dists[0]+30)
         self.animate2()
    
     def animate2(self):
@@ -151,7 +144,8 @@ class Canvas(FingureCanvas):
         self.ax[0].lines = []
         self.ax[0].plot(self.pos[:len(old_dists)],old_dists,'m-o',markersize=3,
                        label='before calibration')  
-        self.animate2()     
+        self.animate2() 
+            
     def clear(self):
         self.dists = []
         self.ints = []
@@ -167,13 +161,13 @@ class Canvas(FingureCanvas):
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
-        np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head)
+        np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head,fmt=['%11.4f','%20.1f','%20.0d'])
         
         
     def load(self,filename):
         self.clear()
         self.pos, self.dists,self.ints= np.loadtxt(filename,unpack=True)
-        self.resizeY(self.dists[0]-10,self.dists[0]+10)
+        self.resizeY(self.dists[0]-30,self.dists[0]+30)
         self.resizeX(self.pos[0],self.pos[-1])
         self.animate2()
         
