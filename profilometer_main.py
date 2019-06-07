@@ -91,11 +91,15 @@ class MainWindow_EXEC():
         self.ui.actionApply_Calibration.triggered.connect(self.apply_calibration)
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         self.ui.limit_lable.setHidden(True)
-        
+        self.menu_calibration_path()
         
         
         self.MainWindow.show()
         sys.exit(self.app.exec_())
+
+    def menu_calibration_path(self):
+        filename = self.canvas.calibrate.get_calibration_filename()
+        self.ui.actioncalibration_path.setText(filename)
         
     def rehome(self):
         scan.send_cmd('HOME\n')
@@ -299,6 +303,7 @@ class MainWindow_EXEC():
     def update_calibration_file(self):
         calibration_path, _ = QtWidgets.QFileDialog.getOpenFileName()
         self.calibrate.change_calibration_file(calibration_path)
+        self.menu_calibration_path()
     
     def apply_calibration(self):
         self.canvas.calibrate_data()
