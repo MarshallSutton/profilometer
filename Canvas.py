@@ -81,7 +81,7 @@ class Canvas(FingureCanvas):
         self.qthread = None
         self.laserscan = None
         self.legend = None
-        self.calibrate = Calibration()
+        #self.calibrate = Calibration()
         
         #super(Canvas,self).__init__(self,self.fig)
                 

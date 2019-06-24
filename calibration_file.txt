@@ -1,1 +1,1 @@
-/home/scannerone/dev/profilometer/data.txt
+/home/msutton1/profilometer/data.txt
