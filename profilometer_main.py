@@ -92,6 +92,8 @@ class MainWindow_EXEC():
         self.ui.actionInitialize_Axis.triggered.connect(self.rehome)
         self.ui.limit_lable.setHidden(True)
         self.menu_calibration_path()
+
+        self.update_spinbox(scan.get_pos())
         
         
         self.MainWindow.show()
@@ -284,7 +286,7 @@ class MainWindow_EXEC():
         if num_points != 0 and distance !=0 and interval == 0:
             return num_points, distance/num_points, distance
         if num_points == 0 and distance !=0 and interval != 0:
-            return int(distance/interval), interval. distance
+            return int(distance/interval), interval, distance
         else:
             return 20,1.0,10
         

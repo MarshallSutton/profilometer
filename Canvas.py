@@ -85,13 +85,13 @@ class Canvas(FingureCanvas):
         self.dists.append(dist)
         self.pos.append(posit)
         self.ints.append(inty)
-        if len(self.pos)<= 1:
-            self.resizeY(self.dists[0]-30,self.dists[0]+30)
-        self.animate2()
+        if len(self.pos) <= 1:
+            self.resizeY(self.dists[0]-30 ,self.dists[0]+30)
+        #self.animate2()
    
     def animate2(self):
         #print(self.pos,self.dists,self.ints)
-        #print(len(self.dists))
+        print(len(self.dists))
         self.ax[0].plot(self.pos[:len(self.dists)],self.dists,'b-o',markersize=3)
         self.ax[1].plot(self.pos[:len(self.dists)],self.ints,'r-o',markersize=3)
         self.draw()
@@ -121,10 +121,12 @@ class Canvas(FingureCanvas):
         self.draw()
         
     def resizeY(self,start,end):
+        print(start,end)
         self.ax[0].set_ylim(start,end)
         self.draw()
         
     def resizeY_intensity(self,start,end):
+        print('intensity',start,end)
         self.ax[1].set_ylim(start,end)
         self.draw()
         
