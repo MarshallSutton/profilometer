@@ -87,12 +87,14 @@ class Canvas(FingureCanvas):
         self.ints.append(inty)
         if len(self.pos) <= 1:
             self.resizeY(self.dists[0]-30 ,self.dists[0]+30)
-        #self.animate2()
+        self.animate2()
    
     def animate2(self):
         #print(self.pos,self.dists,self.ints)
         print(len(self.dists))
+        self.ax[0].lines = [] 
         self.ax[0].plot(self.pos[:len(self.dists)],self.dists,'b-o',markersize=3)
+        self.ax[1].lines = []
         self.ax[1].plot(self.pos[:len(self.dists)],self.ints,'r-o',markersize=3)
         self.draw()
 
