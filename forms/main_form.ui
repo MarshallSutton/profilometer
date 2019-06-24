@@ -812,6 +812,8 @@
     </property>
     <addaction name="actionCalibrate"/>
     <addaction name="actionApply_Calibration"/>
+    <addaction name="actionCalibration_File"/>
+    <addaction name="actioncalibration_path"/>
    </widget>
    <addaction name="menuProfilometer"/>
    <addaction name="menu_File"/>
@@ -863,6 +865,22 @@
   <action name="actionApply_Calibration">
    <property name="text">
     <string>Apply Calibration</string>
+   </property>
+  </action>
+  <action name="actionCalibration_File">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Calibration File:</string>
+   </property>
+  </action>
+  <action name="actioncalibration_path">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>calibration_path</string>
    </property>
   </action>
  </widget>

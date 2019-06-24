@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -268,6 +268,12 @@ class Ui_MainWindow(object):
         self.actionCalibrate.setObjectName("actionCalibrate")
         self.actionApply_Calibration = QtWidgets.QAction(MainWindow)
         self.actionApply_Calibration.setObjectName("actionApply_Calibration")
+        self.actionCalibration_File = QtWidgets.QAction(MainWindow)
+        self.actionCalibration_File.setEnabled(False)
+        self.actionCalibration_File.setObjectName("actionCalibration_File")
+        self.actioncalibration_path = QtWidgets.QAction(MainWindow)
+        self.actioncalibration_path.setEnabled(False)
+        self.actioncalibration_path.setObjectName("actioncalibration_path")
         self.menuProfilometer.addAction(self.action_File)
         self.menu_File.addAction(self.action_Save)
         self.menu_File.addAction(self.actionLoad)
@@ -277,6 +283,8 @@ class Ui_MainWindow(object):
         self.menuRe_home.addAction(self.actionInitialize_Axis)
         self.menuCalibration.addAction(self.actionCalibrate)
         self.menuCalibration.addAction(self.actionApply_Calibration)
+        self.menuCalibration.addAction(self.actionCalibration_File)
+        self.menuCalibration.addAction(self.actioncalibration_path)
         self.menubar.addAction(self.menuProfilometer.menuAction())
         self.menubar.addAction(self.menu_File.menuAction())
         self.menubar.addAction(self.menuTIlt_Correction.menuAction())
@@ -325,6 +333,8 @@ class Ui_MainWindow(object):
         self.actionInitialize_Axis.setText(_translate("MainWindow", "Initialize Axis"))
         self.actionCalibrate.setText(_translate("MainWindow", "Select Calibration File"))
         self.actionApply_Calibration.setText(_translate("MainWindow", "Apply Calibration"))
+        self.actionCalibration_File.setText(_translate("MainWindow", "Calibration File:"))
+        self.actioncalibration_path.setText(_translate("MainWindow", "calibration_path"))
 
 
 if __name__ == "__main__":
