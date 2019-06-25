@@ -165,7 +165,7 @@ class Canvas(FingureCanvas):
         distsnp = np.asarray(self.dists)
         intsnp = np.asarray(self.ints)
         posnp = np.asarray(self.pos)
-        np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head,fmt=['%11.4f','%20.2f','%20.0d'])
+        np.savetxt(filename,np.c_[posnp,distsnp,intsnp],header=head,fmt=['%11.4f','%20.1f','%20.0d'])
         
         
     def load(self,filename):

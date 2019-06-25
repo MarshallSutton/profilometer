@@ -47,6 +47,7 @@ import os
 from Canvas import Canvas
 
 from calibration import Calibration
+from distance import Distance
 
     
 class MainWindow_EXEC():
@@ -93,8 +94,10 @@ class MainWindow_EXEC():
         self.ui.limit_lable.setHidden(True)
         self.menu_calibration_path()
 
+        self.distance_thread = None
         self.update_spinbox(scan.get_pos())
         self.update_thread()
+        self.qthread3 = None
 
         
         
@@ -180,7 +183,7 @@ class MainWindow_EXEC():
         self.canvas.resizeY(self.ystart,self.yend)
         
     def scan_button(self):
-        self.dist_thread._stop()
+        self.distance_thread.stop_loop()
         self.canvas.clear()
         self.ui.btn_SCAN.setDisabled(True)
         nsamples = self.ui.sb_Npoints.value()
@@ -321,17 +324,19 @@ class MainWindow_EXEC():
     def apply_calibration(self):
         self.canvas.calibrate_data()
 
-    def update_distance(self):
-        while True:
-            try:
-                self.ui.dist_value.setValue(scan.laser_measurement()[0])
-            except:
-                self.ui.dist_value.setValue(0)
-            time.sleep(0.5)
+    def update_distance(self,distance):
+        self.ui.dist_value.setValue(distance)
+        
 
     def update_thread(self):
-        self.dist_thread = threading.Thread(target=self.update_distance,daemon=True)
-        self.dist_thread.start()
+        self.distance_thread = Distance
+        self.qthread3 = QtCore.QThread()
+        self.distance_thread.moveToThread(self.qthread3)
+        self.qthread3.started.connect(self.dist_thread.loop_distance)
+        self.distance_thread.dist.connect(update_distance)
+        self.qthread3.start()
+        self.distance_thread.end.connect(self.qthread3.quit())
+        
     
 if __name__ == "__main__":
     MainWindow_EXEC()
