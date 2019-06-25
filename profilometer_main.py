@@ -320,8 +320,10 @@ class MainWindow_EXEC():
         self.canvas.calibrate_data()
 
     def update_distance(self):
-        self.ui.dist_value.setValue(scan.laser_measurement()[0])
-
+        try:
+            self.ui.dist_value.setValue(scan.laser_measurement()[0])
+        except:
+            self.ui.dist_value.setValue(0)
 if __name__ == "__main__":
     MainWindow_EXEC()
     

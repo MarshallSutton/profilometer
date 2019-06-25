@@ -77,7 +77,7 @@ class Canvas(FingureCanvas):
         self.qthread = None
         self.laserscan = None
         self.legend = None
-        #self.calibrate = Calibration()
+        self.calibrate = Calibration()
         
           
        
