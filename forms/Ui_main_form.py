@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.2
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(824, 750)
+        MainWindow.resize(824, 793)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -94,7 +94,7 @@ class Ui_MainWindow(object):
         self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
         self.gb_ = QtWidgets.QGroupBox(self.centralwidget)
-        self.gb_.setGeometry(QtCore.QRect(10, 530, 251, 191))
+        self.gb_.setGeometry(QtCore.QRect(10, 530, 251, 211))
         self.gb_.setObjectName("gb_")
         self.btn_go1 = QtWidgets.QPushButton(self.gb_)
         self.btn_go1.setGeometry(QtCore.QRect(12, 30, 80, 19))
@@ -136,10 +136,13 @@ class Ui_MainWindow(object):
         self.sb_goto3_2.setProperty("value", 0.0)
         self.sb_goto3_2.setObjectName("sb_goto3_2")
         self.lbl_current_pos = QtWidgets.QLabel(self.gb_)
-        self.lbl_current_pos.setGeometry(QtCore.QRect(10, 130, 97, 16))
+        self.lbl_current_pos.setGeometry(QtCore.QRect(10, 140, 97, 16))
         self.lbl_current_pos.setObjectName("lbl_current_pos")
         self.curr_position = QtWidgets.QDoubleSpinBox(self.gb_)
-        self.curr_position.setGeometry(QtCore.QRect(120, 130, 124, 19))
+        self.curr_position.setGeometry(QtCore.QRect(120, 130, 124, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.curr_position.setFont(font)
         self.curr_position.setReadOnly(True)
         self.curr_position.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.curr_position.setDecimals(3)
@@ -158,14 +161,17 @@ class Ui_MainWindow(object):
         self.up_btn.setArrowType(QtCore.Qt.UpArrow)
         self.up_btn.setObjectName("up_btn")
         self.dist_value = QtWidgets.QDoubleSpinBox(self.gb_)
-        self.dist_value.setGeometry(QtCore.QRect(150, 153, 91, 21))
+        self.dist_value.setGeometry(QtCore.QRect(150, 170, 91, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.dist_value.setFont(font)
         self.dist_value.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.dist_value.setDecimals(3)
         self.dist_value.setMinimum(-300.0)
         self.dist_value.setMaximum(300.0)
         self.dist_value.setObjectName("dist_value")
         self.measurement_label = QtWidgets.QLabel(self.gb_)
-        self.measurement_label.setGeometry(QtCore.QRect(10, 150, 121, 21))
+        self.measurement_label.setGeometry(QtCore.QRect(10, 170, 121, 21))
         self.measurement_label.setObjectName("measurement_label")
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(80, 30, 711, 471))

@@ -180,6 +180,7 @@ class MainWindow_EXEC():
         self.canvas.resizeY(self.ystart,self.yend)
         
     def scan_button(self):
+        self.dist_thread._stop()
         self.canvas.clear()
         self.ui.btn_SCAN.setDisabled(True)
         nsamples = self.ui.sb_Npoints.value()
@@ -194,7 +195,8 @@ class MainWindow_EXEC():
         self.canvas.resizeX(self.start,self.end)
         self.canvas.laser(nsamp,interva,connected=True)
         self.canvas.laserscan.position.connect(self.update_spinbox)
-        self.canvas.laserscan.end.connect(self.enable_scan) 
+        self.canvas.laserscan.end.connect(self.enable_scan)
+        self.update_thread() 
         
     def enable_scan(self):
         self.ui.btn_SCAN.setEnabled(True)
@@ -328,8 +330,8 @@ class MainWindow_EXEC():
             time.sleep(0.5)
 
     def update_thread(self):
-        x = threading.Thread(target=update_distance)
-        x.start()
+        self.dist_thread = threading.Thread(target=self.update_distance,daemon=True)
+        self.dist_thread.start()
     
 if __name__ == "__main__":
     MainWindow_EXEC()
