@@ -42,7 +42,7 @@ from forms.Ui_calibration import Ui_CalibrationWindow
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtPrintSupport
 from PyQt5.QtCore import pyqtSignal, QObject, QThread, pyqtSlot, QTimer
-import sys, time, datetime
+import sys, time, datetime, threading
 import os
 from Canvas import Canvas
 
@@ -94,7 +94,7 @@ class MainWindow_EXEC():
         self.menu_calibration_path()
 
         self.update_spinbox(scan.get_pos())
-        self.update_distance()
+        self.update_thread()
 
         
         
@@ -108,44 +108,44 @@ class MainWindow_EXEC():
     def rehome(self):
         scan.send_cmd('HOME\n')
         self.update_spinbox(scan.get_pos())
-        self.update_distance()
+        #self.update_distance()
         
         
     def goto1(self):
         loc = self.ui.sb_goto1.value()
         pos = self.moving(loc)
         self.update_spinbox(pos)
-        self.update_distance()
+        #self.update_distance()
             #scan.move_position(loc,self.speed)
     
     def goto2(self):
         loc = self.ui.sb_goto2.value()
         pos = self.moving(loc)
         self.update_spinbox(pos)
-        self.update_distance()
+        #self.update_distance()
 
     def goto3(self):
         loc = self.ui.sb_goto3.value()
         pos = self.moving(loc)
         self.update_spinbox(pos)
-        self.update_distance()
+        #self.update_distance()
             
     def move_up(self):
         loc = self.ui.sb_goto3_2.value()
         scan.moveinc(-loc,self.speed)
         self.update_spinbox(scan.get_pos())
-        self.update_distance()
+        #self.update_distance()
             
     def move_down(self):
         loc = self.ui.sb_goto3_2.value()
         scan.moveinc(loc,self.speed)
         self.update_spinbox(scan.get_pos())
-        self.update_distance()
+        #self.update_distance()
             
     def moving(self,loc):
         #pool = mp.Pool(processes=1)
         result = scan.move_position(loc,self.speed)
-        self.update_distance()         
+        #self.update_distance()         
         return result
         
             
@@ -320,10 +320,17 @@ class MainWindow_EXEC():
         self.canvas.calibrate_data()
 
     def update_distance(self):
-        try:
-            self.ui.dist_value.setValue(scan.laser_measurement()[0])
-        except:
-            self.ui.dist_value.setValue(0)
+        while True:
+            try:
+                self.ui.dist_value.setValue(scan.laser_measurement()[0])
+            except:
+                self.ui.dist_value.setValue(0)
+            time.sleep(0.5)
+
+    def update_thread(self):
+        x = threading.Thread(target=update_distance)
+        x.start()
+    
 if __name__ == "__main__":
     MainWindow_EXEC()
     
