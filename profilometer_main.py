@@ -97,7 +97,7 @@ class MainWindow_EXEC():
         self.distance_thread = None
         self.update_spinbox(scan.get_pos())
         self.update_thread()
-        self.qthread3 = None
+        
 
         
         
@@ -135,9 +135,23 @@ class MainWindow_EXEC():
             
     def move_up(self):
         loc = self.ui.sb_goto3_2.value()
-        scan.moveinc(-loc,self.speed)
+        scan.moveinc(loc,self.speed)
         self.update_spinbox(scan.get_pos())
-        #self.update_distance()
+    
+        
+
+    def update_distance(self,distance):
+        self.ui.dist_value.setValue(distance)
+        
+
+    def update_thread(self):
+        self.distance_thread = Distance()
+        self.qthread3 = QtCore.QThread()
+        self.distance_thread.moveToThread(self.qthread3)
+        self.qthread3.started.connect(self.distance_thread.loop_distance)
+        self.distance_thread.dist.connect(self.update_distance)
+        self.qthread3.start()
+        self.distance_thread.end.connect(self.qthread3.quit)
             
     def move_down(self):
         loc = self.ui.sb_goto3_2.value()
@@ -184,12 +198,13 @@ class MainWindow_EXEC():
         
     def scan_button(self):
         self.distance_thread.stop_loop()
+        self.qthread3.quit()
         self.canvas.clear()
         self.ui.btn_SCAN.setDisabled(True)
         nsamples = self.ui.sb_Npoints.value()
         interval = self.ui.sb_interval.value()
         distance = self.ui.sb_distance.value()
-        nsamp,interva,dist = self.pick2(nsamples,interval,distance)
+        nsamp, interva, dist = self.pick2(nsamples, interval, distance)
         self.ui.sb_distance.setValue(dist)
         self.ui.sb_Npoints.setValue(nsamp)
         self.ui.sb_interval.setValue(interva)
@@ -199,7 +214,8 @@ class MainWindow_EXEC():
         self.canvas.laser(nsamp,interva,connected=True)
         self.canvas.laserscan.position.connect(self.update_spinbox)
         self.canvas.laserscan.end.connect(self.enable_scan)
-        self.update_thread() 
+        
+        
         
     def enable_scan(self):
         self.ui.btn_SCAN.setEnabled(True)
@@ -229,7 +245,6 @@ class MainWindow_EXEC():
         title = os.path.basename(saved)
         comments = self.ui.comments.toPlainText()
         self.canvas.save(saved,comments=comments)
-        self.canvas.add_title(title)
         #self.canvas.print_fig(saved)
         
     def load(self):
@@ -324,18 +339,7 @@ class MainWindow_EXEC():
     def apply_calibration(self):
         self.canvas.calibrate_data()
 
-    def update_distance(self,distance):
-        self.ui.dist_value.setValue(distance)
-        
-
-    def update_thread(self):
-        self.distance_thread = Distance
-        self.qthread3 = QtCore.QThread()
-        self.distance_thread.moveToThread(self.qthread3)
-        self.qthread3.started.connect(self.dist_thread.loop_distance)
-        self.distance_thread.dist.connect(update_distance)
-        self.qthread3.start()
-        self.distance_thread.end.connect(self.qthread3.quit())
+    
         
     
 if __name__ == "__main__":

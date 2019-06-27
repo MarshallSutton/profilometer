@@ -41,7 +41,7 @@ import time
 
 class Distance(QObject):
     dist = pyqtSignal(float)
-    end = pyqtSignal(bool)
+    end = pyqtSignal()
 
     def __init__(self):
         QtCore.QThread.__init__(self)
@@ -49,7 +49,7 @@ class Distance(QObject):
 
     def get_distance(self):
         try:
-            distance = scan.laser_connect()[0]
+            distance = scan.laser_measurement()[0]
         except:
             distance = 0
         self.dist.emit(distance)

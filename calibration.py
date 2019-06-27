@@ -71,9 +71,9 @@ class Calibration():
 
     def normalize(self,distance_array):
         return distance_array-np.mean(distance_array)
-
+  
     def interpolation(self,input):
-        return np.interp(input,self.pos,self.norm_distance)
+        return np.interp(input,self.pos,self.dists)
 
     def plot_data(self):
         plt.plot(self.pos,self.dists,'-r')

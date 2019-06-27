@@ -144,7 +144,7 @@ class Canvas(FingureCanvas):
 
     def calibrate_data(self):
         old_dists = self.dists
-        self.dists = self.dists+self.calibrate.interpolation(self.pos)
+        self.dists = self.dists-self.calibrate.interpolation(self.pos)
         self.ax[0].lines = []
         self.ax[0].plot(self.pos[:len(old_dists)],old_dists,'m-o',markersize=3,
                        label='before calibration')  
