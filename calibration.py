@@ -61,7 +61,7 @@ class Calibration():
         try:
             self.pos, self.dists, self.ints = np.loadtxt(filename, unpack=True)
         except Exception as e:
-            self.pos, self.dists, self.ints = ([],[],[])
+            self.pos, self.dists = np.loadtxt(filename, unpack=True)
             print(e)
 
     def change_calibration_file(self,filename):
