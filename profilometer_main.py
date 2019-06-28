@@ -135,15 +135,12 @@ class MainWindow_EXEC():
             
     def move_up(self):
         loc = self.ui.sb_goto3_2.value()
-        scan.moveinc(loc,self.speed)
+        scan.moveinc(-loc,self.speed)
         self.update_spinbox(scan.get_pos())
-    
-        
 
     def update_distance(self,distance):
         self.ui.dist_value.setValue(distance)
         
-
     def update_thread(self):
         self.distance_thread = Distance()
         self.qthread3 = QtCore.QThread()

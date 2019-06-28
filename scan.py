@@ -154,6 +154,7 @@ def laser_measurement():
     
     
     meas = ser.readline().decode('ascii').split('\r')
+    # meas = ser.read(286).decode('ascii').split('\r')
     print(meas)
     meas.pop(-1)
     values = []

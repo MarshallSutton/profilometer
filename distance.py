@@ -57,7 +57,7 @@ class Distance(QObject):
     def loop_distance(self):
         while self.stop_scanner:
             self.get_distance()
-            time.sleep(.5)
+            time.sleep(.1)
 
     def stop_loop(self):
         self.stop_scanner = False
