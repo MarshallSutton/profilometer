@@ -263,10 +263,22 @@ class MainWindow_EXEC():
         
     def qt_print(self):
         printer= QtPrintSupport.QPrinter()
+        dialog = QtPrintSupport.QPrintDialog()
+        if (dialog.exec_() !=QtWidgets.QDialog.Accepted):
+            return
+        screen = self.MainWindow
         painter = QtGui.QPainter()
         painter.begin(printer)
-        screen = self.MainWindow.grab()
-        painter.drawPixmap(10,10,screen)
+        print(printer.paperRect().x())
+        XScale = (printer.pageRect().width()/(screen.width()))
+        YScale = (printer.pageRect().height()/(screen.height()))
+        scale = min(XScale,YScale)
+        painter.translate((printer.paperRect().x()) + 
+        (printer.pageRect().width()/2),(printer.paperRect().y()) +
+        (printer.pageRect().height()/2))
+        painter.scale(scale,scale)
+        painter.translate(-1*screen.width()/2,-1*screen.height()/2)
+        screen.render(painter)
         painter.end()
        
     def changeY(self):
