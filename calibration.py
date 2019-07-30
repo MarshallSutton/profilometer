@@ -47,15 +47,14 @@ class Calibration():
     
 
     def __init__(self):
-        self.calibration_file_path = 'calibration_file'
+        self.calibration_file_path = '/home/scannerone/profilometer/calibration_file'
         self.load_calibration_file(self.get_calibration_filename())
         self.norm_distance = self.normalize(self.dists)  
 
     def get_calibration_filename(self):
-        filename = None
         with open(self.calibration_file_path, 'r') as cal:
             filename = cal.read()
-        return filename
+            return filename.strip('\n')
 
     def load_calibration_file(self,filename):
         try:
