@@ -105,9 +105,14 @@ class MainWindow_EXEC():
         sys.exit(self.app.exec_())
 
     def menu_calibration_path(self):
-        filename = self.canvas.calibrate.get_calibration_filename()
-        self.ui.actioncalibration_path.setText(filename)
         
+        try:
+            calibrate = Calibration()
+            filename = self.canvas.calibrate.get_calibration_filename()
+            self.ui.actioncalibration_path.setText(filename)
+        except Exception as e:
+            print('no file listed ',e)
+
     def rehome(self):
         scan.send_cmd('HOME\n')
         self.update_spinbox(scan.get_pos())
@@ -342,7 +347,8 @@ class MainWindow_EXEC():
         
     def update_calibration_file(self):
         calibration_path, _ = QtWidgets.QFileDialog.getOpenFileName()
-        self.calibrate.change_calibration_file(calibration_path)
+        if calibration_path:
+            self.calibrate.change_calibration_file(calibration_path)
         self.menu_calibration_path()
     
     def apply_calibration(self):

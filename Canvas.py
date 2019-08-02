@@ -147,7 +147,7 @@ class Canvas(FingureCanvas):
         try:
             self.dists = self.dists-self.calibrate.interpolation(self.pos)
         except ValueError as e:
-            print('please scan data before calibrating ',e)
+            print('please scan data before calibrating ',e  )
         self.ax[0].lines = []
         self.ax[0].plot(self.pos[:len(old_dists)],old_dists,'m-o',markersize=3,
                        label='before calibration')  

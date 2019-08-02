@@ -49,18 +49,23 @@ class Calibration():
     def __init__(self):
         self.calibration_file_path = '/home/scannerone/profilometer/calibration_file'
         self.load_calibration_file(self.get_calibration_filename())
-        self.norm_distance = self.normalize(self.dists)  
+        
 
     def get_calibration_filename(self):
         with open(self.calibration_file_path, 'r') as cal:
             filename = cal.read()
-            return filename.strip('\n')
+            return filename.strip(' \n')
 
     def load_calibration_file(self,filename):
+        
         try:
             self.pos, self.dists, self.ints = np.loadtxt(filename, unpack=True)
+            self.norm_distance = self.normalize(self.dists)
+        except IOError as e:
+            print(e)
         except Exception as e:
             self.pos, self.dists = np.loadtxt(filename, unpack=True)
+            self.norm_distance = self.normalize(self.dists)
             print(e)
 
     def change_calibration_file(self,filename):
